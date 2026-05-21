@@ -1,0 +1,15 @@
+{
+  "name": "Coffee Point",
+  "short_name": "Coffee Point",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f0eb",
+  "theme_color": "#3c1f17",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml"
+    }
+  ]
+}
