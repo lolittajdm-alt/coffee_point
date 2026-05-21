@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 430" role="img" aria-label="Coffee hero composition">
+  <defs>
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="16" stdDeviation="12" flood-color="#2c1710" flood-opacity="0.26"/>
+    </filter>
+    <filter id="beanShadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="7" stdDeviation="5" flood-color="#2c1710" flood-opacity="0.22"/>
+    </filter>
+    <linearGradient id="cup" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d4a27c"/>
+      <stop offset="0.44" stop-color="#a86a48"/>
+      <stop offset="1" stop-color="#6b3d2b"/>
+    </linearGradient>
+    <linearGradient id="cookie" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3c2119"/>
+      <stop offset="1" stop-color="#120706"/>
+    </linearGradient>
+    <radialGradient id="cream" cx="45%" cy="30%" r="70%">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.58" stop-color="#efe2d9"/>
+      <stop offset="1" stop-color="#d6bba9"/>
+    </radialGradient>
+    <radialGradient id="bean" cx="36%" cy="30%" r="70%">
+      <stop offset="0" stop-color="#9a5a3a"/>
+      <stop offset="1" stop-color="#2a110d"/>
+    </radialGradient>
+  </defs>
+
+  <g opacity="0.98">
+    <text x="64" y="118" font-family="Montserrat, Arial, sans-serif" font-size="92" font-weight="900" letter-spacing="-8" fill="#070707">COFFEE</text>
+    <text x="64" y="226" font-family="Montserrat, Arial, sans-serif" font-size="92" font-weight="900" letter-spacing="-8" fill="#070707">COFFEE</text>
+    <text x="64" y="334" font-family="Montserrat, Arial, sans-serif" font-size="92" font-weight="900" letter-spacing="-8" fill="#070707">COFFEE</text>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <ellipse cx="282" cy="313" rx="98" ry="28" fill="#2b130f" opacity="0.82"/>
+    <ellipse cx="534" cy="315" rx="128" ry="24" fill="#2b130f" opacity="0.64"/>
+
+    <g transform="translate(198 250) rotate(-9)">
+      <ellipse cx="0" cy="36" rx="82" ry="34" fill="url(#cookie)"/>
+      <ellipse cx="3" cy="23" rx="76" ry="22" fill="#42251d"/>
+      <rect x="-62" y="25" width="126" height="13" rx="6" fill="#0f0505" opacity="0.52"/>
+    </g>
+    <g transform="translate(252 283) rotate(-2)">
+      <ellipse cx="0" cy="28" rx="76" ry="31" fill="url(#cookie)"/>
+      <ellipse cx="0" cy="16" rx="70" ry="21" fill="#42251d"/>
+      <rect x="-56" y="19" width="112" height="12" rx="6" fill="#0f0505" opacity="0.56"/>
+    </g>
+
+    <g transform="translate(326 101)">
+      <path d="M84 22c38 2 62 27 53 54 24 8 36 27 29 46-10 28-58 31-90 26-39-6-85-13-106-39-18-22-12-52 16-64 15-7 33-6 48-1 10-16 27-23 50-22z" fill="url(#cream)"/>
+      <path d="M39 36c8 18 31 14 43 5M84 57c14 14 42 10 52-4M32 92c24 9 63 13 93 4" fill="none" stroke="#c5a18c" stroke-width="8" stroke-linecap="round" opacity="0.5"/>
+    </g>
+
+    <g transform="translate(340 159)">
+      <path d="M15 6h146l-24 198c-3 23-19 37-42 37H80c-23 0-39-14-42-37L15 6z" fill="url(#cup)"/>
+      <ellipse cx="88" cy="10" rx="76" ry="20" fill="#f1e1d2"/>
+      <ellipse cx="88" cy="12" rx="58" ry="11" fill="#71402a" opacity="0.32"/>
+      <rect x="49" y="78" width="78" height="78" rx="39" fill="#33201b"/>
+      <rect x="57" y="86" width="62" height="62" rx="31" fill="none" stroke="#e5bd82" stroke-width="5"/>
+      <text x="88" y="126" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-size="15" font-weight="800" fill="#fff2de">Milton's</text>
+      <path d="M157 66c50 3 62 70 16 90" fill="none" stroke="#8b5639" stroke-width="18" stroke-linecap="round" opacity="0.82"/>
+    </g>
+
+    <g transform="translate(486 251) rotate(14)">
+      <ellipse cx="0" cy="34" rx="89" ry="33" fill="url(#cookie)"/>
+      <ellipse cx="2" cy="20" rx="80" ry="22" fill="#3d2119"/>
+      <rect x="-64" y="24" width="128" height="11" rx="6" fill="#110706" opacity="0.56"/>
+    </g>
+  </g>
+
+  <g fill="#f0dcc0" filter="url(#beanShadow)">
+    <circle cx="566" cy="323" r="22"/>
+    <circle cx="612" cy="302" r="17"/>
+    <circle cx="306" cy="329" r="14"/>
+  </g>
+
+  <g filter="url(#beanShadow)">
+    <g transform="translate(265 74) rotate(26)"><ellipse rx="17" ry="10" fill="url(#bean)"/><path d="M0-8c-5 5-5 11 1 16" fill="none" stroke="#c38a60" stroke-width="2" opacity="0.5"/></g>
+    <g transform="translate(608 75) rotate(-20)"><ellipse rx="18" ry="10" fill="url(#bean)"/><path d="M0-8c-5 5-5 11 1 16" fill="none" stroke="#c38a60" stroke-width="2" opacity="0.5"/></g>
+    <g transform="translate(668 169) rotate(42)"><ellipse rx="16" ry="10" fill="url(#bean)"/><path d="M0-7c-5 5-5 10 1 14" fill="none" stroke="#c38a60" stroke-width="2" opacity="0.5"/></g>
+    <g transform="translate(617 365) rotate(-11)"><ellipse rx="18" ry="10" fill="url(#bean)"/><path d="M0-8c-5 5-5 11 1 16" fill="none" stroke="#c38a60" stroke-width="2" opacity="0.5"/></g>
+    <g transform="translate(151 354) rotate(24)"><ellipse rx="17" ry="10" fill="url(#bean)"/><path d="M0-8c-5 5-5 11 1 16" fill="none" stroke="#c38a60" stroke-width="2" opacity="0.5"/></g>
+    <g transform="translate(95 165) rotate(-28)"><ellipse rx="15" ry="9" fill="url(#bean)"/><path d="M0-7c-5 5-5 10 1 14" fill="none" stroke="#c38a60" stroke-width="2" opacity="0.5"/></g>
+  </g>
+
+  <g fill="#5d2c20" opacity="0.92">
+    <rect x="354" y="32" width="8" height="28" rx="4" transform="rotate(-18 358 46)"/>
+    <rect x="399" y="21" width="7" height="29" rx="4" transform="rotate(8 402 35)"/>
+    <rect x="443" y="31" width="8" height="28" rx="4" transform="rotate(28 447 45)"/>
+    <rect x="580" y="353" width="7" height="27" rx="4" transform="rotate(-27 583 366)"/>
+    <rect x="631" y="350" width="7" height="27" rx="4" transform="rotate(22 634 363)"/>
+  </g>
+</svg>

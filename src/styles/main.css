@@ -2535,3 +2535,71 @@ body {
     width: calc(100vw - 12px);
   }
 }
+
+
+/* Reference image artwork for the first hero banner */
+.hero-art-image {
+  min-height: 408px;
+}
+
+.hero-reference-image {
+  position: absolute;
+  top: -12px;
+  right: -20px;
+  z-index: 6;
+  width: min(720px, 112%);
+  max-width: none;
+  height: auto;
+  filter: drop-shadow(0 22px 26px rgba(39, 24, 18, 0.16));
+  pointer-events: none;
+}
+
+.hero-art-image .paper-ring,
+.hero-art-image .coffee-wall,
+.hero-art-image .coffee-splash,
+.hero-art-image .macaron,
+.hero-art-image .pack,
+.hero-art-image .cup,
+.hero-art-image .bean {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .hero-art-image {
+    min-height: 340px;
+    transform: none;
+  }
+
+  .hero-reference-image {
+    top: -8px;
+    right: 50%;
+    width: min(640px, 132vw);
+    transform: translateX(50%);
+  }
+}
+
+@media (max-width: 760px) {
+  .hero-art-image {
+    min-height: 296px;
+    transform: none;
+  }
+
+  .hero-reference-image {
+    top: -2px;
+    right: 50%;
+    width: min(560px, 142vw);
+    transform: translateX(50%);
+  }
+}
+
+@media (max-width: 420px) {
+  .hero-art-image {
+    min-height: 252px;
+    transform: none;
+  }
+
+  .hero-reference-image {
+    top: 0;
+    width: 150vw;
+  }
+}

@@ -1,4 +1,5 @@
 import { categories } from "../data/products.js";
+import heroCoffeeReference from "../assets/hero-coffee-reference.svg";
 import "../styles/main.css";
 
 const header = document.querySelector("[data-header]");
@@ -12,6 +13,7 @@ const categoryTitle = document.querySelector("[data-category-title]");
 const categoryDescription = document.querySelector("[data-category-description]");
 const categoryVisual = document.querySelector("[data-category-visual]");
 const productCarousel = document.querySelector("[data-product-carousel]");
+const heroReferenceImage = document.querySelector("[data-hero-reference-image]");
 const cartToggle = document.querySelector("[data-cart-toggle]");
 const cartDrawer = document.querySelector("[data-cart-drawer]");
 const cartClose = document.querySelector("[data-cart-close]");
@@ -22,6 +24,10 @@ const cartProductDescription = document.querySelector("[data-cart-product-descri
 const cartProductWeight = document.querySelector("[data-cart-product-weight]");
 const cartProductPrice = document.querySelector("[data-cart-product-price]");
 const cartProductImage = document.querySelector("[data-cart-image]");
+
+if (heroReferenceImage) {
+  heroReferenceImage.src = heroCoffeeReference;
+}
 
 let heroIndex = 0;
 let activeCategoryIndex = 0;
