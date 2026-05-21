@@ -2088,3 +2088,41 @@ body.cart-open .cart-scrim {
     height: 130px;
   }
 }
+
+
+/* Pull the first banner into the rounded top of the next section */
+.hero {
+  margin-bottom: -108px;
+  padding-bottom: 136px;
+}
+
+.hero::after {
+  z-index: 7;
+  height: 230px;
+  background: linear-gradient(
+    180deg,
+    rgba(244, 243, 240, 0) 0%,
+    rgba(246, 245, 242, 0.38) 26%,
+    rgba(255, 255, 255, 0.76) 58%,
+    #ffffff 100%
+  );
+}
+
+.categories {
+  padding-top: clamp(72px, 7vw, 96px);
+}
+
+@media (max-width: 900px) {
+  .hero {
+    margin-bottom: -82px;
+    padding-bottom: 112px;
+  }
+
+  .hero::after {
+    height: 190px;
+  }
+
+  .categories {
+    padding-top: clamp(64px, 9vw, 84px);
+  }
+}
