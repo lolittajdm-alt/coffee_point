@@ -24,9 +24,7 @@ html {
 
 body {
   margin: 0;
-  background:
-    radial-gradient(circle at top left, rgba(222, 162, 96, 0.16), transparent 30rem),
-    linear-gradient(180deg, #f7f2ee 0%, #efe7df 100%);
+  background: #ffffff;
   color: var(--brown);
   font-family: "Montserrat", Arial, sans-serif;
 }
