@@ -1964,3 +1964,88 @@ body.cart-open .cart-scrim {
     border-radius: 24px;
   }
 }
+
+
+/* Slider and category tab polish */
+.hero-slide {
+  transform: translateX(24px) scale(0.995);
+  transition:
+    opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-slide.is-active {
+  transform: translateX(0) scale(1);
+}
+
+.hero-controls .hero-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  opacity: 0.42;
+  transform: scale(1);
+  transition:
+    opacity 260ms ease,
+    transform 260ms ease,
+    background 260ms ease;
+}
+
+.hero-controls .hero-dot.is-active {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  opacity: 1;
+  transform: scale(1.28);
+}
+
+.category-tabs {
+  gap: clamp(22px, 5vw, 58px);
+  margin-bottom: 46px;
+}
+
+.category-tab {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 8px 0;
+  color: rgba(60, 31, 23, 0.66);
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  transform: scale(1);
+  transition:
+    color 220ms ease,
+    transform 220ms ease,
+    text-shadow 220ms ease;
+}
+
+.category-tab[aria-selected="true"] {
+  border: 0;
+  background: transparent;
+  color: var(--brown);
+  font-weight: 900;
+  transform: scale(1.18);
+  text-shadow: 0 10px 24px rgba(60, 31, 23, 0.15);
+}
+
+.category-tab:hover,
+.category-tab:focus-visible {
+  background: transparent;
+  color: var(--brown);
+  transform: scale(1.12);
+}
+
+.category-tab:focus-visible {
+  outline: 0;
+}
+
+@media (max-width: 620px) {
+  .category-tabs {
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .category-tab {
+    font-size: 0.98rem;
+  }
+}
