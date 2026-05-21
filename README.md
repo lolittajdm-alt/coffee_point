@@ -1,6 +1,6 @@
 # Coffee Point
 
-Ready-to-run frontend project for a Coffee Point landing page.
+Ready-to-run React frontend project for a Coffee Point landing page.
 
 ## Project structure
 
@@ -13,8 +13,8 @@ coffee_point/
 │   ├── assets/             # Product photos, banners, brand assets
 │   ├── data/               # Catalog/category data
 │   │   └── products.js
-│   ├── scripts/            # Browser JavaScript
-│   │   └── main.js
+│   ├── App.jsx             # React landing page components
+│   ├── main.jsx            # React entry point
 │   └── styles/             # Site styles
 │       └── main.css
 ├── index.html              # Main page template
@@ -59,7 +59,8 @@ npm run preview
 ## Content notes
 
 - Product/category content lives in `src/data/products.js`.
-- Main interactions live in `src/scripts/main.js`.
+- React components and interactions live in `src/App.jsx`.
+- React mounts from `src/main.jsx`.
 - Layout and responsive styles live in `src/styles/main.css`.
 - Replace CSS placeholder products with real images in `src/assets/` when final product photos are ready.
 

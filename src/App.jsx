@@ -1,0 +1,538 @@
+import { useEffect, useMemo, useRef, useState } from "react";
+import { categories } from "./data/products.js";
+import heroCoffeeReference from "./assets/hero-coffee-reference.svg";
+
+const heroSlides = [
+  {
+    id: "beans",
+    accent: "#e3a767",
+    artClass: "hero-art-beans hero-art-image",
+    kicker: ["IT' A BREAK", "WITH"],
+    highlight: "COFFEE",
+    image: heroCoffeeReference,
+    repeat: ["COFFEE", "COFFEE", "COFFEE", "COFFEE", "COFFEE"],
+  },
+  {
+    id: "office",
+    accent: "#7b4d37",
+    artClass: "hero-art-office",
+    kicker: ["OFFICE BREAK", "WITH"],
+    highlight: "COFFEE",
+    repeat: ["COFFEE", "COFFEE", "COFFEE", "COFFEE", "COFFEE"],
+  },
+  {
+    id: "sticks",
+    accent: "#c9894f",
+    artClass: "hero-art-sticks",
+    kicker: ["FAST BREAK", "WITH"],
+    highlight: "COFFEE",
+    repeat: ["COFFEE", "COFFEE", "COFFEE", "COFFEE", "COFFEE"],
+  },
+];
+
+function productLabel(product) {
+  return product.name.split(" ").slice(0, 2).join("\n");
+}
+
+function ProductLabel({ value }) {
+  return value.split("\n").map((line, index) => (
+    <span key={`${line}-${index}`}>
+      {index > 0 && <br />}
+      {line}
+    </span>
+  ));
+}
+
+function Header({ isFloating, isMenuOpen, isCartOpen, onToggleMenu, onCloseMenu, onOpenCart }) {
+  return (
+    <header className={`site-header${isFloating ? " is-floating" : ""}`} data-header>
+      <a className="hero-logo" href="#top" aria-label="Coffee Point головна" onClick={onCloseMenu}>
+        <span className="hero-logo-mark" aria-hidden="true">CP</span>
+        <span>Coffee Point</span>
+      </a>
+      <button
+        className="menu-toggle"
+        type="button"
+        aria-label="Відкрити меню"
+        aria-expanded={isMenuOpen}
+        onClick={onToggleMenu}
+      >
+        <span></span>
+        <span></span>
+      </button>
+      <nav className={`main-nav${isMenuOpen ? " is-open" : ""}`} data-nav>
+        <a href="#top" onClick={onCloseMenu}>Home</a>
+        <a href="#products" onClick={onCloseMenu}>Menu</a>
+        <a href="#how-it-works" onClick={onCloseMenu}>Deals</a>
+        <a href="#wholesale" onClick={onCloseMenu}>Favourite</a>
+        <button
+          className="cart-link"
+          type="button"
+          aria-label="Відкрити кошик"
+          aria-expanded={isCartOpen}
+          onClick={onOpenCart}
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M7 8h12l-1.2 7.2a2 2 0 0 1-2 1.7H9.1a2 2 0 0 1-2-1.7L5.8 5.8H3.6" />
+            <path d="M9 8a3 3 0 0 1 6 0" />
+            <circle cx="9.5" cy="20" r="1" />
+            <circle cx="16.5" cy="20" r="1" />
+          </svg>
+        </button>
+      </nav>
+    </header>
+  );
+}
+
+function HeroArt({ slide }) {
+  if (slide.image) {
+    return (
+      <div className={`hero-art ${slide.artClass}`} aria-hidden="true">
+        <img className="hero-reference-image" src={slide.image} alt="" />
+        <span className="paper-ring"></span>
+        <span className="coffee-wall">COFFEE<br />COFFEE<br />COFFEE</span>
+        <span className="coffee-splash"></span>
+        <span className="macaron macaron-one"></span>
+        <span className="macaron macaron-two"></span>
+        <span className="pack pack-large">Milton's<br />Coffee</span>
+        <span className="cup">Milton's</span>
+        <span className="bean bean-1"></span>
+        <span className="bean bean-2"></span>
+        <span className="bean bean-3"></span>
+        <span className="bean bean-4"></span>
+        <span className="bean bean-5"></span>
+      </div>
+    );
+  }
+
+  if (slide.id === "office") {
+    return (
+      <div className={`hero-art ${slide.artClass}`} aria-hidden="true">
+        <span className="paper-ring"></span>
+        <span className="coffee-wall">COFFEE<br />COFFEE<br />COFFEE</span>
+        <span className="coffee-splash"></span>
+        <span className="pack pack-large">Office<br />Blend</span>
+        <span className="takeaway-cup">HOT</span>
+        <span className="bean bean-1"></span>
+        <span className="bean bean-2"></span>
+        <span className="bean bean-3"></span>
+        <span className="bean bean-4"></span>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`hero-art ${slide.artClass}`} aria-hidden="true">
+      <span className="paper-ring"></span>
+      <span className="coffee-wall">COFFEE<br />COFFEE<br />COFFEE</span>
+      <span className="coffee-splash"></span>
+      <span className="stick stick-one">Latte</span>
+      <span className="stick stick-two">Cappuccino</span>
+      <span className="stick stick-three">Classic</span>
+      <span className="cup">CP</span>
+      <span className="bean bean-1"></span>
+      <span className="bean bean-2"></span>
+      <span className="bean bean-3"></span>
+    </div>
+  );
+}
+
+function Hero({ heroIndex, onHeroChange }) {
+  useEffect(() => {
+    const timer = window.setInterval(() => onHeroChange((heroIndex + 1) % heroSlides.length), 5000);
+    return () => window.clearInterval(timer);
+  }, [heroIndex, onHeroChange]);
+
+  return (
+    <section className="hero" aria-label="Акції Coffee Point">
+      <div className="hero-slider" data-hero-slider>
+        {heroSlides.map((slide, index) => (
+          <article
+            className={`hero-slide${index === heroIndex ? " is-active" : ""}`}
+            data-accent={slide.accent}
+            key={slide.id}
+          >
+            <div className="hero-copy hero-copy-reference">
+              <p className="hero-kicker">
+                <span>{slide.kicker[0]}</span>
+                <span>{slide.kicker[1]} <strong>{slide.highlight}</strong></span>
+              </p>
+              <h1 className="coffee-repeat" aria-label="Coffee">
+                {slide.repeat.map((item, repeatIndex) => <span key={`${slide.id}-${repeatIndex}`}>{item}</span>)}
+              </h1>
+            </div>
+            <HeroArt slide={slide} />
+          </article>
+        ))}
+      </div>
+      <div className="hero-controls" aria-label="Керування банером">
+        <button type="button" aria-label="Попередній слайд" onClick={() => onHeroChange((heroIndex - 1 + heroSlides.length) % heroSlides.length)}>‹</button>
+        <div className="hero-dots" data-hero-dots>
+          {heroSlides.map((slide, index) => (
+            <button
+              className={`hero-dot${index === heroIndex ? " is-active" : ""}`}
+              type="button"
+              aria-label={`Показати слайд ${index + 1}`}
+              key={`${slide.id}-dot`}
+              onClick={() => onHeroChange(index)}
+            ></button>
+          ))}
+        </div>
+        <button type="button" aria-label="Наступний слайд" onClick={() => onHeroChange((heroIndex + 1) % heroSlides.length)}>›</button>
+      </div>
+    </section>
+  );
+}
+
+function CategoryTabs({ activeCategoryIndex, onCategoryChange }) {
+  return (
+    <div className="category-tabs" role="tablist" aria-label="Розділи товарів" data-category-tabs>
+      {categories.map((category, index) => (
+        <button
+          className="category-tab"
+          type="button"
+          role="tab"
+          aria-selected={index === activeCategoryIndex}
+          key={category.id}
+          onClick={() => onCategoryChange(index)}
+        >
+          {category.title}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function CategoryOverview({ category }) {
+  return (
+    <div className="category-overview">
+      <div className="category-copy">
+        <span className="eyebrow">{category.kicker}</span>
+        <h3>{category.title}</h3>
+        <p>{category.description}</p>
+      </div>
+      <div className="category-visual" aria-hidden="true">
+        <div className="product-orbit">
+          <div className="orbit-ring"></div>
+          <div className="orbit-product" data-shape={category.visual.shape}>
+            <ProductLabel value={category.visual.label} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProductCarousel({ activeCategoryIndex, activeProductIndex, onProductChange, onOpenCart }) {
+  const category = categories[activeCategoryIndex];
+  const carouselRef = useRef(null);
+
+  function selectProduct(index, shouldScroll = true) {
+    onProductChange(index);
+    if (shouldScroll) {
+      window.setTimeout(() => {
+        const card = carouselRef.current?.querySelector(`[data-product-index="${index}"]`);
+        card?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      }, 0);
+    }
+  }
+
+  return (
+    <>
+      <div className="product-heading">
+        <div>
+          <span className="eyebrow">Детальний вибір</span>
+          <h3>Весь асортимент розділу в одну лінію</h3>
+        </div>
+        <div className="product-slider-controls">
+          <button type="button" aria-label="Попередній товар" onClick={() => selectProduct((activeProductIndex - 1 + category.products.length) % category.products.length)}>‹</button>
+          <button type="button" aria-label="Наступний товар" onClick={() => selectProduct((activeProductIndex + 1) % category.products.length)}>›</button>
+        </div>
+      </div>
+      <div className="product-carousel" data-product-carousel aria-live="polite" ref={carouselRef}>
+        {category.products.map((product, index) => {
+          const isActive = index === activeProductIndex;
+          return (
+            <article
+              className={`product-card${isActive ? " is-active" : ""}`}
+              tabIndex="0"
+              data-product-index={index}
+              key={`${category.id}-${product.name}`}
+              onClick={() => selectProduct(index)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  selectProduct(index);
+                }
+              }}
+            >
+              <div className="product-image" data-shape={product.shape}>
+                <ProductLabel value={productLabel(product)} />
+              </div>
+              <h4>{product.name}</h4>
+              <p>{product.taste}</p>
+              <div className="product-meta">
+                <span>{product.weight}</span>
+                <strong>{product.price}</strong>
+              </div>
+              <button
+                className="buy-button"
+                type="button"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  selectProduct(index, false);
+                  onOpenCart();
+                }}
+              >
+                Купити / в кошик
+              </button>
+            </article>
+          );
+        })}
+      </div>
+    </>
+  );
+}
+
+function Categories({ activeCategoryIndex, activeProductIndex, onCategoryChange, onProductChange, onOpenCart }) {
+  const category = categories[activeCategoryIndex];
+  return (
+    <section className="categories" id="products">
+      <div className="section-heading">
+        <span className="eyebrow">Асортимент</span>
+        <p>
+          Кожна категорія має окремий смаковий профіль, формат використання і власну
+          лінійку товарів.
+        </p>
+      </div>
+      <CategoryTabs activeCategoryIndex={activeCategoryIndex} onCategoryChange={onCategoryChange} />
+      <CategoryOverview category={category} />
+      <ProductCarousel
+        activeCategoryIndex={activeCategoryIndex}
+        activeProductIndex={activeProductIndex}
+        onProductChange={onProductChange}
+        onOpenCart={onOpenCart}
+      />
+    </section>
+  );
+}
+
+function Steps() {
+  return (
+    <section className="steps" id="how-it-works">
+      <div className="section-heading">
+        <span className="eyebrow">Просто замовити</span>
+        <h2>ОБИРАЙ - СПЛАЧУЙ - СМАКУЙ</h2>
+        <p>
+          Купуйте у нас, якщо хочете швидко отримати зрозумілий вибір, стабільну якість
+          та підтримку на кожному кроці.
+        </p>
+      </div>
+      <div className="step-grid">
+        <article className="step-card">
+          <span className="step-number">01</span>
+          <h3>Обирай</h3>
+          <p>Знайдіть категорію, смак і формат фасування під свій сценарій.</p>
+          <span className="step-arrow" aria-hidden="true">→</span>
+        </article>
+        <article className="step-card">
+          <span className="step-number">02</span>
+          <h3>Сплачуй</h3>
+          <p>Підтвердьте замовлення та отримайте швидке погодження деталей.</p>
+          <span className="step-arrow" aria-hidden="true">→</span>
+        </article>
+        <article className="step-card">
+          <span className="step-number">03</span>
+          <h3>Смакуй</h3>
+          <p>Насолоджуйтесь кавою вдома, в офісі або пригощайте гостей бізнесу.</p>
+        </article>
+      </div>
+    </section>
+  );
+}
+
+function Wholesale() {
+  return (
+    <section className="wholesale" id="wholesale">
+      <div className="wholesale-copy">
+        <span className="eyebrow">Співпраця</span>
+        <h2>Оптові поставки для бізнесу</h2>
+        <p>
+          Працюємо з офісами, магазинами, кав'ярнями та партнерами, яким потрібні
+          регулярні партії кави. Підберемо асортимент, пакування та умови під ваші
+          задачі.
+        </p>
+        <div className="messenger-buttons" aria-label="Зв'язатися">
+          <a href="https://t.me/" target="_blank" rel="noreferrer">Telegram</a>
+          <a href="viber://chat" rel="noreferrer">Viber</a>
+          <a href="https://wa.me/" target="_blank" rel="noreferrer">WhatsApp</a>
+        </div>
+      </div>
+      <div className="wholesale-art" aria-hidden="true">
+        <span className="bag">COFFEE<br />POINT</span>
+        <span className="dark-cup">CP</span>
+        <span className="bean bean-1"></span>
+        <span className="bean bean-2"></span>
+        <span className="bean bean-3"></span>
+        <span className="bean bean-4"></span>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="footer" id="contacts">
+      <div className="footer-brand">
+        <a className="logo footer-logo" href="#top">
+          <span className="logo-mark">CP</span>
+          <span>Coffee Point</span>
+        </a>
+        <p>
+          Свіжа кава для дому, офісу та бізнесу. Допомагаємо обрати формат, який
+          стабільно смакує саме вам.
+        </p>
+      </div>
+      <div>
+        <h3>Меню</h3>
+        <a href="#products">Товари</a>
+        <a href="#how-it-works">Як купити</a>
+        <a href="#wholesale">Опт</a>
+      </div>
+      <div>
+        <h3>Наші дані</h3>
+        <p>м. Київ, Україна</p>
+        <p>+38 (000) 000-00-00</p>
+        <p>hello@coffee-point.ua</p>
+      </div>
+      <div className="footer-bottom">© 2026 Coffee Point. Усі права захищені.</div>
+    </footer>
+  );
+}
+
+function CartDrawer({ isOpen, activeCategoryIndex, activeProductIndex, onClose }) {
+  const category = categories[activeCategoryIndex];
+  const product = category.products[activeProductIndex];
+
+  return (
+    <>
+      <aside className="cart-drawer" aria-hidden={!isOpen} aria-labelledby="cart-title" data-cart-drawer>
+        <div className="cart-drawer-header">
+          <div>
+            <span className="cart-eyebrow">Ваш вибір</span>
+            <h2 id="cart-title">Кошик</h2>
+          </div>
+          <button className="cart-close" type="button" aria-label="Закрити кошик" onClick={onClose}>×</button>
+        </div>
+        <div className="cart-product">
+          <div className="cart-product-image" data-shape={product.shape}>
+            <ProductLabel value={productLabel(product)} />
+          </div>
+          <div className="cart-product-info">
+            <span>{category.title}</span>
+            <h3>{product.name}</h3>
+            <p>{product.taste}</p>
+            <div className="cart-product-meta">
+              <span>{product.weight}</span>
+              <strong>{product.price}</strong>
+            </div>
+          </div>
+        </div>
+        <button className="cart-checkout" type="button">Оформити замовлення</button>
+      </aside>
+      <button className="cart-scrim" type="button" aria-label="Закрити кошик" onClick={onClose}></button>
+    </>
+  );
+}
+
+export default function App() {
+  const [isFloating, setIsFloating] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [heroIndex, setHeroIndex] = useState(0);
+  const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
+  const [activeProductIndex, setActiveProductIndex] = useState(0);
+
+  const bodyClassName = useMemo(() => {
+    const classes = [];
+    if (isMenuOpen) classes.push("menu-open");
+    if (isCartOpen) classes.push("cart-open");
+    return classes.join(" ");
+  }, [isCartOpen, isMenuOpen]);
+
+  useEffect(() => {
+    document.body.className = bodyClassName;
+    return () => {
+      document.body.className = "";
+    };
+  }, [bodyClassName]);
+
+  useEffect(() => {
+    const updateHeader = () => setIsFloating(window.scrollY > 20);
+    updateHeader();
+    window.addEventListener("scroll", updateHeader, { passive: true });
+    return () => window.removeEventListener("scroll", updateHeader);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 900) {
+        setIsMenuOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    const handleKeydown = (event) => {
+      if (event.key === "Escape") {
+        setIsCartOpen(false);
+      }
+    };
+    document.addEventListener("keydown", handleKeydown);
+    return () => document.removeEventListener("keydown", handleKeydown);
+  }, []);
+
+  function handleCategoryChange(index) {
+    setActiveCategoryIndex(index);
+    setActiveProductIndex(0);
+  }
+
+  function openCart() {
+    setIsMenuOpen(false);
+    setIsCartOpen(true);
+  }
+
+  return (
+    <>
+      <Header
+        isFloating={isFloating}
+        isMenuOpen={isMenuOpen}
+        isCartOpen={isCartOpen}
+        onToggleMenu={() => setIsMenuOpen((value) => !value)}
+        onCloseMenu={() => setIsMenuOpen(false)}
+        onOpenCart={openCart}
+      />
+      <CartDrawer
+        isOpen={isCartOpen}
+        activeCategoryIndex={activeCategoryIndex}
+        activeProductIndex={activeProductIndex}
+        onClose={() => setIsCartOpen(false)}
+      />
+      <main id="top">
+        <Hero heroIndex={heroIndex} onHeroChange={setHeroIndex} />
+        <Categories
+          activeCategoryIndex={activeCategoryIndex}
+          activeProductIndex={activeProductIndex}
+          onCategoryChange={handleCategoryChange}
+          onProductChange={setActiveProductIndex}
+          onOpenCart={openCart}
+        />
+        <Steps />
+        <Wholesale />
+      </main>
+      <Footer />
+    </>
+  );
+}
