@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coffee Point | Свіжа кава щодня</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <a class="logo" href="#top" aria-label="Coffee Point головна">
+        <span class="logo-mark">CP</span>
+        <span>Coffee Point</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Відкрити меню" aria-expanded="false" data-menu-toggle>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="main-nav" data-nav>
+        <a href="#products">Товари</a>
+        <a href="#how-it-works">Як купити</a>
+        <a href="#wholesale">Опт</a>
+        <a class="nav-cta" href="#contacts">Контакти</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-label="Акції Coffee Point">
+        <div class="hero-slider" data-hero-slider>
+          <article class="hero-slide is-active" data-accent="#e3a767">
+            <div class="hero-copy">
+              <span class="eyebrow">Свіже обсмаження</span>
+              <h1>Зроби паузу з ароматною кавою</h1>
+              <p>
+                Зерно, мелена кава, розчинні напої та стіки для дому, офісу і HoReCa.
+                Обирайте формат, який пасує вашому ритму.
+              </p>
+              <a class="primary-button" href="#products">Обрати каву</a>
+            </div>
+            <div class="hero-art hero-art-beans" aria-hidden="true">
+              <span class="coffee-splash"></span>
+              <span class="pack pack-large">Premium<br />Arabica</span>
+              <span class="cup">CP</span>
+              <span class="bean bean-1"></span>
+              <span class="bean bean-2"></span>
+              <span class="bean bean-3"></span>
+            </div>
+          </article>
+          <article class="hero-slide" data-accent="#7b4d37">
+            <div class="hero-copy">
+              <span class="eyebrow">Для бізнесу</span>
+              <h1>Кавові рішення для офісів і кав'ярень</h1>
+              <p>
+                Допоможемо підібрати смак, фасування та регулярність поставок під ваші
+                обсяги.
+              </p>
+              <a class="primary-button" href="#wholesale">Співпраця по опту</a>
+            </div>
+            <div class="hero-art hero-art-office" aria-hidden="true">
+              <span class="coffee-splash"></span>
+              <span class="pack pack-large">Office<br />Blend</span>
+              <span class="takeaway-cup">HOT</span>
+              <span class="bean bean-1"></span>
+              <span class="bean bean-2"></span>
+              <span class="bean bean-3"></span>
+            </div>
+          </article>
+          <article class="hero-slide" data-accent="#c9894f">
+            <div class="hero-copy">
+              <span class="eyebrow">Швидко та зручно</span>
+              <h1>Стіки, які завжди поруч</h1>
+              <p>
+                Порційні формати для дороги, переговорів та швидкої кавової паузи без
+                зайвих турбот.
+              </p>
+              <a class="primary-button" href="#products">Дивитись стіки</a>
+            </div>
+            <div class="hero-art hero-art-sticks" aria-hidden="true">
+              <span class="coffee-splash"></span>
+              <span class="stick stick-one">Latte</span>
+              <span class="stick stick-two">Cappuccino</span>
+              <span class="stick stick-three">Classic</span>
+              <span class="cup">CP</span>
+            </div>
+          </article>
+        </div>
+        <div class="hero-controls" aria-label="Керування банером">
+          <button type="button" data-hero-prev aria-label="Попередній слайд">‹</button>
+          <div class="hero-dots" data-hero-dots></div>
+          <button type="button" data-hero-next aria-label="Наступний слайд">›</button>
+        </div>
+      </section>
+
+      <section class="categories" id="products">
+        <div class="section-heading">
+          <span class="eyebrow">Асортимент</span>
+          <h2>Оберіть свій розділ кави</h2>
+          <p>
+            Кожна категорія має окремий смаковий профіль, формат використання і власну
+            лінійку товарів.
+          </p>
+        </div>
+
+        <div class="category-tabs" role="tablist" aria-label="Розділи товарів" data-category-tabs></div>
+
+        <div class="category-overview">
+          <div class="category-copy">
+            <span class="eyebrow" data-category-kicker>Категорія</span>
+            <h3 data-category-title></h3>
+            <p data-category-description></p>
+          </div>
+          <div class="category-visual" aria-hidden="true">
+            <div class="product-orbit">
+              <div class="orbit-ring"></div>
+              <div class="orbit-product" data-category-visual></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-heading">
+          <div>
+            <span class="eyebrow">Детальний вибір</span>
+            <h3>Весь асортимент розділу в одну лінію</h3>
+          </div>
+          <div class="product-slider-controls">
+            <button type="button" data-products-prev aria-label="Попередній товар">‹</button>
+            <button type="button" data-products-next aria-label="Наступний товар">›</button>
+          </div>
+        </div>
+
+        <div class="product-carousel" data-product-carousel aria-live="polite"></div>
+      </section>
+
+      <section class="steps" id="how-it-works">
+        <div class="section-heading">
+          <span class="eyebrow">Просто замовити</span>
+          <h2>ОБИРАЙ - СПЛАЧУЙ - СМАКУЙ</h2>
+          <p>
+            Купуйте у нас, якщо хочете швидко отримати зрозумілий вибір, стабільну якість
+            та підтримку на кожному кроці.
+          </p>
+        </div>
+        <div class="step-grid">
+          <article class="step-card">
+            <span class="step-number">01</span>
+            <h3>Обирай</h3>
+            <p>Знайдіть категорію, смак і формат фасування під свій сценарій.</p>
+            <span class="step-arrow" aria-hidden="true">→</span>
+          </article>
+          <article class="step-card">
+            <span class="step-number">02</span>
+            <h3>Сплачуй</h3>
+            <p>Підтвердьте замовлення та отримайте швидке погодження деталей.</p>
+            <span class="step-arrow" aria-hidden="true">→</span>
+          </article>
+          <article class="step-card">
+            <span class="step-number">03</span>
+            <h3>Смакуй</h3>
+            <p>Насолоджуйтесь кавою вдома, в офісі або пригощайте гостей бізнесу.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="wholesale" id="wholesale">
+        <div class="wholesale-copy">
+          <span class="eyebrow">Співпраця</span>
+          <h2>Оптові поставки для бізнесу</h2>
+          <p>
+            Працюємо з офісами, магазинами, кав'ярнями та партнерами, яким потрібні
+            регулярні партії кави. Підберемо асортимент, пакування та умови під ваші
+            задачі.
+          </p>
+          <div class="messenger-buttons" aria-label="Зв'язатися">
+            <a href="https://t.me/" target="_blank" rel="noreferrer">Telegram</a>
+            <a href="viber://chat" rel="noreferrer">Viber</a>
+            <a href="https://wa.me/" target="_blank" rel="noreferrer">WhatsApp</a>
+          </div>
+        </div>
+        <div class="wholesale-art" aria-hidden="true">
+          <span class="bag">COFFEE<br />POINT</span>
+          <span class="dark-cup">CP</span>
+          <span class="bean bean-1"></span>
+          <span class="bean bean-2"></span>
+          <span class="bean bean-3"></span>
+          <span class="bean bean-4"></span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" id="contacts">
+      <div class="footer-brand">
+        <a class="logo footer-logo" href="#top">
+          <span class="logo-mark">CP</span>
+          <span>Coffee Point</span>
+        </a>
+        <p>
+          Свіжа кава для дому, офісу та бізнесу. Допомагаємо обрати формат, який
+          стабільно смакує саме вам.
+        </p>
+      </div>
+      <div>
+        <h3>Меню</h3>
+        <a href="#products">Товари</a>
+        <a href="#how-it-works">Як купити</a>
+        <a href="#wholesale">Опт</a>
+      </div>
+      <div>
+        <h3>Наші дані</h3>
+        <p>м. Київ, Україна</p>
+        <p>+38 (000) 000-00-00</p>
+        <p>hello@coffee-point.ua</p>
+      </div>
+      <div class="footer-bottom">© 2026 Coffee Point. Усі права захищені.</div>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
