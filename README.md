@@ -62,3 +62,13 @@ npm run preview
 - Main interactions live in `src/scripts/main.js`.
 - Layout and responsive styles live in `src/styles/main.css`.
 - Replace CSS placeholder products with real images in `src/assets/` when final product photos are ready.
+
+## GitHub Pages deployment
+
+The project is configured for GitHub Pages at:
+
+```text
+https://lolittajdm-alt.github.io/coffee_point/
+```
+
+Deployment runs automatically from `.github/workflows/deploy.yml` after changes are merged into `main`. In repository settings, Pages should use **GitHub Actions** as the source.
