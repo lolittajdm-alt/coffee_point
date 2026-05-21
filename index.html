@@ -20,17 +20,27 @@
   </head>
   <body>
     <header class="site-header" data-header>
-      <a class="hero-logo" href="#top" aria-label="Coffee Point головна">LOGO</a>
+      <a class="hero-logo" href="#top" aria-label="Coffee Point головна">
+        <span class="hero-logo-mark" aria-hidden="true">CP</span>
+        <span>Coffee Point</span>
+      </a>
       <button class="menu-toggle" type="button" aria-label="Відкрити меню" aria-expanded="false" data-menu-toggle>
         <span></span>
         <span></span>
       </button>
       <nav class="main-nav" data-nav>
-        <a class="is-active" href="#top">Home</a>
+        <a href="#top">Home</a>
         <a href="#products">Menu</a>
         <a href="#how-it-works">Deals</a>
         <a href="#wholesale">Favourite</a>
-        <a class="cart-link" href="#contacts" aria-label="Кошик">⌁</a>
+        <a class="cart-link" href="#contacts" aria-label="Кошик">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M7 8h12l-1.2 7.2a2 2 0 0 1-2 1.7H9.1a2 2 0 0 1-2-1.7L5.8 5.8H3.6" />
+            <path d="M9 8a3 3 0 0 1 6 0" />
+            <circle cx="9.5" cy="20" r="1" />
+            <circle cx="16.5" cy="20" r="1" />
+          </svg>
+        </a>
       </nav>
     </header>
 

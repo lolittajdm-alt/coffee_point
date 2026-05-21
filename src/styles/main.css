@@ -1592,3 +1592,99 @@ h1 {
     bottom: 10px;
   }
 }
+
+
+/* Header polish requested after reference pass */
+.site-header.is-floating {
+  border: 0;
+  outline: 0;
+  box-shadow: 0 14px 38px rgba(28, 22, 18, 0.12);
+}
+
+.hero-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #181615;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.hero-logo-mark {
+  position: relative;
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border: 2px solid #181615;
+  border-radius: 50%;
+  color: #181615;
+  font-size: 0.52rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+.hero-logo-mark::after {
+  position: absolute;
+  top: 4px;
+  right: -7px;
+  width: 7px;
+  height: 9px;
+  border: 2px solid #181615;
+  border-left: 0;
+  border-radius: 0 7px 7px 0;
+  content: "";
+}
+
+.main-nav a {
+  background: transparent;
+  color: #181615;
+}
+
+.main-nav a:hover,
+.main-nav a:focus-visible {
+  background: #221815;
+  color: #f5eee6;
+}
+
+.main-nav .cart-link {
+  display: grid;
+  width: 32px;
+  min-width: 32px;
+  height: 28px;
+  place-items: center;
+  padding: 0;
+  background: transparent;
+  color: #181615;
+  transform: none;
+}
+
+.main-nav .cart-link svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.9;
+}
+
+.main-nav .cart-link:hover,
+.main-nav .cart-link:focus-visible {
+  background: #221815;
+  color: #f5eee6;
+}
+
+.site-header.is-floating .hero-logo-mark,
+.site-header.is-floating .hero-logo-mark::after {
+  border-color: #181615;
+}
+
+@media (max-width: 900px) {
+  .site-header.is-floating {
+    border: 0;
+  }
+}
