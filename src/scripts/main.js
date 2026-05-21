@@ -12,6 +12,16 @@ const categoryTitle = document.querySelector("[data-category-title]");
 const categoryDescription = document.querySelector("[data-category-description]");
 const categoryVisual = document.querySelector("[data-category-visual]");
 const productCarousel = document.querySelector("[data-product-carousel]");
+const cartToggle = document.querySelector("[data-cart-toggle]");
+const cartDrawer = document.querySelector("[data-cart-drawer]");
+const cartClose = document.querySelector("[data-cart-close]");
+const cartScrim = document.querySelector("[data-cart-scrim]");
+const cartCategory = document.querySelector("[data-cart-category]");
+const cartProductTitle = document.querySelector("[data-cart-product-title]");
+const cartProductDescription = document.querySelector("[data-cart-product-description]");
+const cartProductWeight = document.querySelector("[data-cart-product-weight]");
+const cartProductPrice = document.querySelector("[data-cart-product-price]");
+const cartProductImage = document.querySelector("[data-cart-image]");
 
 let heroIndex = 0;
 let activeCategoryIndex = 0;
@@ -61,6 +71,38 @@ function renderTabs() {
 
 function productLabel(product) {
   return product.name.split(" ").slice(0, 2).join("\n");
+}
+
+function getActiveProduct() {
+  const category = categories[activeCategoryIndex];
+  return {
+    category,
+    product: category.products[activeProductIndex],
+  };
+}
+
+function renderCartProduct() {
+  const { category, product } = getActiveProduct();
+  cartCategory.textContent = category.title;
+  cartProductTitle.textContent = product.name;
+  cartProductDescription.textContent = product.taste;
+  cartProductWeight.textContent = product.weight;
+  cartProductPrice.textContent = product.price;
+  cartProductImage.innerHTML = productLabel(product).replace("\n", "<br />");
+  cartProductImage.dataset.shape = product.shape;
+}
+
+function openCart() {
+  renderCartProduct();
+  document.body.classList.add("cart-open");
+  cartDrawer.setAttribute("aria-hidden", "false");
+  cartToggle.setAttribute("aria-expanded", "true");
+}
+
+function closeCart() {
+  document.body.classList.remove("cart-open");
+  cartDrawer.setAttribute("aria-hidden", "true");
+  cartToggle.setAttribute("aria-expanded", "false");
 }
 
 function renderProducts(category) {
@@ -136,7 +178,11 @@ tabsContainer.addEventListener("click", (event) => {
 productCarousel.addEventListener("click", (event) => {
   const card = event.target.closest("[data-product-index]");
   if (!card) return;
-  setActiveProduct(Number(card.dataset.productIndex));
+  const productIndex = Number(card.dataset.productIndex);
+  setActiveProduct(productIndex);
+  if (event.target.closest(".buy-button")) {
+    openCart();
+  }
 });
 
 productCarousel.addEventListener("keydown", (event) => {
@@ -167,6 +213,20 @@ nav.addEventListener("click", (event) => {
   }
 });
 
+cartToggle.addEventListener("click", () => {
+  closeMenu();
+  openCart();
+});
+
+cartClose.addEventListener("click", closeCart);
+cartScrim.addEventListener("click", closeCart);
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeCart();
+  }
+});
+
 window.addEventListener("scroll", updateHeader, { passive: true });
 window.addEventListener("resize", () => {
   if (window.innerWidth > 900) {
@@ -178,4 +238,5 @@ renderHeroDots();
 setHeroSlide(0);
 startHeroAutoplay();
 setCategory(0);
+renderCartProduct();
 updateHeader();
