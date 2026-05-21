@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { categories } from "./data/products.js";
-import heroCoffeeReference from "./assets/hero-coffee-reference.svg";
+import heroFirstBlockReference from "./assets/hero-first-block-reference.svg";
 
 const heroSlides = [
   {
@@ -9,7 +9,7 @@ const heroSlides = [
     artClass: "hero-art-beans hero-art-image",
     kicker: ["IT' A BREAK", "WITH"],
     highlight: "COFFEE",
-    image: heroCoffeeReference,
+    poster: heroFirstBlockReference,
     repeat: ["COFFEE", "COFFEE", "COFFEE", "COFFEE", "COFFEE"],
   },
   {
@@ -148,20 +148,26 @@ function Hero({ heroIndex, onHeroChange }) {
       <div className="hero-slider" data-hero-slider>
         {heroSlides.map((slide, index) => (
           <article
-            className={`hero-slide${index === heroIndex ? " is-active" : ""}`}
+            className={`hero-slide${slide.poster ? " hero-slide-poster" : ""}${index === heroIndex ? " is-active" : ""}`}
             data-accent={slide.accent}
             key={slide.id}
           >
-            <div className="hero-copy hero-copy-reference">
-              <p className="hero-kicker">
-                <span>{slide.kicker[0]}</span>
-                <span>{slide.kicker[1]} <strong>{slide.highlight}</strong></span>
-              </p>
-              <h1 className="coffee-repeat" aria-label="Coffee">
-                {slide.repeat.map((item, repeatIndex) => <span key={`${slide.id}-${repeatIndex}`}>{item}</span>)}
-              </h1>
-            </div>
-            <HeroArt slide={slide} />
+            {slide.poster ? (
+              <img className="hero-poster-image" src={slide.poster} alt="Coffee Point coffee banner" />
+            ) : (
+              <>
+                <div className="hero-copy hero-copy-reference">
+                  <p className="hero-kicker">
+                    <span>{slide.kicker[0]}</span>
+                    <span>{slide.kicker[1]} <strong>{slide.highlight}</strong></span>
+                  </p>
+                  <h1 className="coffee-repeat" aria-label="Coffee">
+                    {slide.repeat.map((item, repeatIndex) => <span key={`${slide.id}-${repeatIndex}`}>{item}</span>)}
+                  </h1>
+                </div>
+                <HeroArt slide={slide} />
+              </>
+            )}
           </article>
         ))}
       </div>
