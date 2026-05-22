@@ -2679,3 +2679,16 @@ body {
     margin-bottom: 26px;
   }
 }
+
+
+/* Improve desktop category label contrast */
+.category-tab {
+  color: rgba(60, 31, 23, 0.92);
+  font-weight: 800;
+}
+
+.category-tab[aria-selected="true"],
+.category-tab:hover,
+.category-tab:focus-visible {
+  color: var(--brown);
+}
