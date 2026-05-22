@@ -705,7 +705,7 @@ h1 {
   align-items: flex-end;
   overflow-x: auto;
   overflow-y: visible;
-  padding: clamp(52px, 7vw, 72px) 4px 24px;
+  padding: clamp(72px, 9vw, 100px) 4px 24px;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   scrollbar-width: thin;
@@ -751,10 +751,10 @@ h1 {
   top: 50%;
   left: 50%;
   z-index: 3;
-  width: 124px;
-  height: 188px;
+  width: 152px;
+  height: 232px;
   margin: 0;
-  transform: translate(-50%, -58%);
+  transform: translate(-50%, -70%);
   border-radius: 0;
   background: transparent;
   box-shadow: none;
@@ -762,23 +762,24 @@ h1 {
 }
 
 .product-card-top .product-image[data-shape="cup"] {
-  width: 112px;
-  height: 140px;
+  width: 132px;
+  height: 168px;
 }
 
 .product-card-top .product-image[data-shape="stick"] {
-  width: 64px;
-  height: 182px;
+  width: 76px;
+  height: 220px;
 }
 
 .product-card.is-active .product-card-top .product-image {
-  transform: translate(-50%, -66%);
+  transform: translate(-50%, -74%);
 }
 
 .product-card-top .product-image.has-pack-image.pack-size-lg {
-  width: 132px;
-  height: 198px;
+  width: 164px;
+  height: 248px;
 }
+
 
 .product-card-top .product-image:not(.has-pack-image) {
   display: grid;
@@ -795,7 +796,7 @@ h1 {
 }
 
 .product-card-top .product-pack-image {
-  transform: scale(1);
+  transform: scale(1.04);
   filter: drop-shadow(0 18px 28px rgba(60, 31, 23, 0.24));
   transition: transform 280ms ease, filter 280ms ease;
 }
@@ -806,7 +807,7 @@ h1 {
 }
 
 .product-card.is-active .product-card-top .product-image:not(.has-pack-image) {
-  transform: translate(-50%, -66%) scale(1.12);
+  transform: translate(-50%, -74%) scale(1.12);
 }
 
 .product-card-bottom {
@@ -2532,7 +2533,7 @@ body {
     gap: 14px;
     margin-right: -16px;
     margin-left: -16px;
-    padding: 48px 16px 20px;
+    padding: 64px 16px 20px;
     scroll-padding-left: 16px;
   }
 
@@ -2545,13 +2546,18 @@ body {
   }
 
   .product-card-top .product-image {
-    width: 108px;
-    height: 164px;
-    transform: translate(-50%, -54%);
+    width: 132px;
+    height: 200px;
+    transform: translate(-50%, -66%);
+  }
+
+  .product-card-top .product-image.has-pack-image.pack-size-lg {
+    width: 142px;
+    height: 214px;
   }
 
   .product-card.is-active .product-card-top .product-image {
-    transform: translate(-50%, -64%);
+    transform: translate(-50%, -70%);
   }
 
   .product-card.is-active .product-card-top .product-pack-image {
