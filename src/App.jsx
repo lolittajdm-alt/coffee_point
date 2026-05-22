@@ -270,7 +270,7 @@ function ProductCarousel({ activeCategoryIndex, activeProductIndex, onProductCha
   }
 
   return (
-    <>
+    <div className="product-showcase">
       <div className="product-heading">
         <div>
           <span className="eyebrow">Детальний вибір</span>
@@ -320,7 +320,7 @@ function ProductCarousel({ activeCategoryIndex, activeProductIndex, onProductCha
           );
         })}
       </div>
-    </>
+    </div>
   );
 }
 

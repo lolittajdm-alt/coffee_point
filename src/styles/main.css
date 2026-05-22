@@ -554,7 +554,7 @@ h1 {
   grid-template-columns: minmax(0, 0.95fr) minmax(260px, 0.7fr);
   align-items: center;
   gap: 34px;
-  margin-bottom: 48px;
+  margin-bottom: clamp(52px, 6vw, 72px);
   border-radius: var(--radius-md);
   background: linear-gradient(135deg, #f8ecdc, #fffaf5);
   padding: clamp(24px, 4vw, 46px);
@@ -619,6 +619,21 @@ h1 {
   height: 220px;
   border-radius: 999px;
   writing-mode: vertical-rl;
+}
+
+
+.product-showcase {
+  position: relative;
+  z-index: 3;
+  margin-top: clamp(44px, 5.5vw, 72px);
+}
+
+.product-showcase .product-heading {
+  margin-bottom: 28px;
+}
+
+.product-showcase .product-carousel {
+  margin-top: 12px;
 }
 
 .product-heading {
@@ -2487,6 +2502,14 @@ body {
     width: 104px;
     height: 154px;
     font-size: 0.68rem;
+  }
+
+  .product-showcase {
+    margin-top: 36px;
+  }
+
+  .product-showcase .product-heading {
+    margin-bottom: 18px;
   }
 
   .product-heading {
