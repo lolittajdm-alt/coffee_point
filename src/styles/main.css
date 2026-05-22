@@ -771,7 +771,7 @@ h1 {
 
 .product-card > .product-image.has-pack-image {
   top: auto;
-  bottom: 244px;
+  bottom: 250px;
   width: 136px;
   height: 198px;
   background: transparent;
@@ -781,7 +781,7 @@ h1 {
 .product-card.is-active > .product-image.has-pack-image {
   width: 158px;
   height: 224px;
-  bottom: 242px;
+  bottom: 264px;
 }
 
 .cart-product-image.has-pack-image {
@@ -799,7 +799,7 @@ h1 {
 }
 
 .product-card > .product-image.has-pack-image.pack-size-lg {
-  bottom: 238px;
+  bottom: 258px;
 }
 
 .product-card.is-active > .product-image.has-pack-image.pack-size-lg {
