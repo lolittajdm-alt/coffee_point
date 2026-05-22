@@ -1,32 +1,24 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { categories } from "./data/products.js";
-import heroFirstBlockReference from "./assets/Gemini_Generated_Image_bd7kqfbd7kqfbd7k.png";
+import heroPackageOne from "./assets/Gemini_Generated_Image_bd7kqfbd7kqfbd7k.png";
+import heroPackageTwo from "./assets/Gemini_Generated_Image_nqg1jjnqg1jjnqg1.png";
+import heroPackageThree from "./assets/Gemini_Generated_Image_p9qyqfp9qyqfp9qy.png";
 
 const heroSlides = [
   {
-    id: "beans",
+    id: "package-one",
     accent: "#e3a767",
-    artClass: "hero-art-beans hero-art-image",
-    kicker: ["IT' A BREAK", "WITH"],
-    highlight: "COFFEE",
-    poster: heroFirstBlockReference,
-    repeat: ["COFFEE", "COFFEE", "COFFEE", "COFFEE", "COFFEE"],
+    poster: heroPackageOne,
   },
   {
-    id: "office",
+    id: "package-two",
+    accent: "#c28b4f",
+    poster: heroPackageTwo,
+  },
+  {
+    id: "package-three",
     accent: "#7b4d37",
-    artClass: "hero-art-office",
-    kicker: ["OFFICE BREAK", "WITH"],
-    highlight: "COFFEE",
-    repeat: ["COFFEE", "COFFEE", "COFFEE", "COFFEE", "COFFEE"],
-  },
-  {
-    id: "sticks",
-    accent: "#c9894f",
-    artClass: "hero-art-sticks",
-    kicker: ["FAST BREAK", "WITH"],
-    highlight: "COFFEE",
-    repeat: ["COFFEE", "COFFEE", "COFFEE", "COFFEE", "COFFEE"],
+    poster: heroPackageThree,
   },
 ];
 
