@@ -35,10 +35,17 @@ function ProductLabel({ value }) {
   ));
 }
 
+function packSizeClass(product) {
+  return product.packSize ? `pack-size-${product.packSize}` : "";
+}
+
 function ProductVisual({ product, className }) {
   if (product.image) {
     return (
-      <div className={`${className} has-pack-image`} data-shape={product.shape}>
+      <div
+        className={`${className} has-pack-image ${packSizeClass(product)}`.trim()}
+        data-shape={product.shape}
+      >
         <img className="product-pack-image" src={product.image} alt="" />
       </div>
     );
@@ -231,7 +238,10 @@ function CategoryOverview({ category, activeProduct }) {
         <div className="product-orbit">
           <div className="orbit-ring"></div>
           {orbitProduct.image ? (
-            <div className="orbit-product has-pack-image" data-shape={orbitProduct.shape}>
+            <div
+              className={`orbit-product has-pack-image ${packSizeClass(orbitProduct)}`.trim()}
+              data-shape={orbitProduct.shape}
+            >
               <img className="product-pack-image" src={orbitProduct.image} alt="" />
             </div>
           ) : (
