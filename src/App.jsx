@@ -292,28 +292,28 @@ function ProductCarousel({ activeCategoryIndex, activeProductIndex, onProductCha
                 }
               }}
             >
-              <div className="product-card-visual">
-                <span className="product-card-badge">{product.weight}</span>
-                <span className="product-card-arch" aria-hidden="true"></span>
+              <div className="product-card-top">
                 <ProductVisual product={product} className="product-image" />
               </div>
-              <div className="product-card-body">
-                <h4>{product.name}</h4>
-                <p>{product.taste}</p>
-                <div className="product-card-footer">
-                  <strong className="product-card-price">{product.price}</strong>
-                  <button
-                    className="buy-button"
-                    type="button"
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      selectProduct(index, false);
-                      onOpenCart();
-                    }}
-                  >
-                    Купити
-                  </button>
+              <div className="product-card-bottom">
+                <div className="product-card-copy">
+                  <h4>{product.name}</h4>
+                  <p>{product.taste}</p>
+                  <span className="product-card-meta">
+                    {product.weight} · {product.price}
+                  </span>
                 </div>
+                <button
+                  className="buy-button buy-button--card"
+                  type="button"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    selectProduct(index, false);
+                    onOpenCart();
+                  }}
+                >
+                  Купити
+                </button>
               </div>
             </article>
           );
