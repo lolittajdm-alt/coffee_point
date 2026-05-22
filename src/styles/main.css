@@ -2725,3 +2725,21 @@ body {
   font-weight: 900 !important;
   opacity: 1 !important;
 }
+
+
+/* Match the first banner bottom corners to the next section */
+.hero-slider {
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  overflow: hidden;
+}
+
+.hero-poster-image {
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
+@media (max-width: 760px) {
+  .hero-slider,
+  .hero-poster-image {
+    border-radius: 0 0 28px 28px;
+  }
+}
