@@ -1,3 +1,8 @@
+import beansPackArabica from "../assets/Gemini_Generated_Image_3vm40n3vm40n3vm4.png";
+import beansPackEspresso from "../assets/Gemini_Generated_Image_7v0k0t7v0k0t7v0k.png";
+import beansPackCrema from "../assets/Gemini_Generated_Image_n6886un6886un688.png";
+import beansPackDark from "../assets/Gemini_Generated_Image_bd7kqfbd7kqfbd7k.png";
+
 export const categories = [
   {
     id: "beans",
@@ -5,7 +10,7 @@ export const categories = [
     kicker: "Для кавомашин та млина",
     description:
       "Цілі зерна з виразним ароматом для тих, хто любить контролювати помел і отримувати максимально свіжий смак у чашці.",
-    visual: { label: "Fresh\nBeans", shape: "pack" },
+    visual: { label: "Fresh\nBeans", shape: "pack", image: beansPackArabica },
     products: [
       {
         name: "Arabica Gold",
@@ -13,6 +18,7 @@ export const categories = [
         weight: "1 кг",
         price: "від 640 грн",
         shape: "pack",
+        image: beansPackArabica,
       },
       {
         name: "Espresso Bar",
@@ -20,6 +26,7 @@ export const categories = [
         weight: "1 кг",
         price: "від 590 грн",
         shape: "pack",
+        image: beansPackEspresso,
       },
       {
         name: "Crema Office",
@@ -27,6 +34,7 @@ export const categories = [
         weight: "500 г",
         price: "від 360 грн",
         shape: "pack",
+        image: beansPackCrema,
       },
       {
         name: "Dark Roast",
@@ -34,6 +42,7 @@ export const categories = [
         weight: "1 кг",
         price: "від 610 грн",
         shape: "pack",
+        image: beansPackDark,
       },
     ],
   },
