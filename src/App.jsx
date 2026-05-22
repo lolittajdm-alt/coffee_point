@@ -1,32 +1,99 @@
-import { useEffect, useMemo, useState } from "react";
-import { categories, processFeatures } from "./data/products.js";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { categories } from "./data/products.js";
+import heroPackageOne from "./assets/Gemini_Generated_Image_bd7kqfbd7kqfbd7k.png";
+import heroPackageTwo from "./assets/Gemini_Generated_Image_nqg1jjnqg1jjnqg1.png";
+import heroPackageThree from "./assets/Gemini_Generated_Image_p9qyqfp9qyqfp9qy.png";
 import heroReference from "./assets/hero-coffee-reference.svg";
+
+const heroSlides = [
+  {
+    id: "reference",
+    accent: "#e3a767",
+    image: heroReference,
+    artClass: "hero-art-image",
+    kicker: ["ПАУЗА", "З"],
+    highlight: "КАВОЮ",
+    repeat: ["КАВА", "КАВА", "КАВА", "КАВА", "КАВА"],
+  },
+  {
+    id: "package-one",
+    accent: "#e3a767",
+    poster: heroPackageOne,
+  },
+  {
+    id: "package-two",
+    accent: "#c28b4f",
+    poster: heroPackageTwo,
+  },
+  {
+    id: "package-three",
+    accent: "#7b4d37",
+    poster: heroPackageThree,
+  },
+];
+
+function productLabel(product) {
+  return product.name.split(" ").slice(0, 2).join("\n");
+}
+
+function ProductLabel({ value }) {
+  return value.split("\n").map((line, index) => (
+    <span key={`${line}-${index}`}>
+      {index > 0 && <br />}
+      {line}
+    </span>
+  ));
+}
+
+function packSizeClass(product) {
+  return product.packSize ? `pack-size-${product.packSize}` : "";
+}
+
+function ProductVisual({ product, className }) {
+  if (product.image) {
+    return (
+      <div
+        className={`${className} has-pack-image ${packSizeClass(product)}`.trim()}
+        data-shape={product.shape}
+      >
+        <img className="product-pack-image" src={product.image} alt="" />
+      </div>
+    );
+  }
+
+  return (
+    <div className={className} data-shape={product.shape}>
+      <ProductLabel value={productLabel(product)} />
+    </div>
+  );
+}
 
 function Header({ isFloating, isMenuOpen, isCartOpen, onToggleMenu, onCloseMenu, onOpenCart }) {
   return (
-    <header className={`site-header${isFloating ? " is-floating" : ""}`}>
-      <a className="site-logo" href="#top" aria-label="Milton's home" onClick={onCloseMenu}>
-        <span className="logo-placeholder">LOGO</span>
+    <header className={`site-header${isFloating ? " is-floating" : ""}`} data-header>
+      <a className="hero-logo" href="#top" aria-label="Coffee Point головна" onClick={onCloseMenu}>
+        <span className="hero-logo-mark" aria-hidden="true">CP</span>
+        <span>Coffee Point</span>
       </a>
       <button
         className="menu-toggle"
         type="button"
-        aria-label="Open menu"
+        aria-label="Відкрити меню"
         aria-expanded={isMenuOpen}
         onClick={onToggleMenu}
       >
         <span></span>
         <span></span>
       </button>
-      <nav className={`main-nav${isMenuOpen ? " is-open" : ""}`}>
+      <nav className={`main-nav${isMenuOpen ? " is-open" : ""}`} data-nav>
         <a href="#top" onClick={onCloseMenu}>Home</a>
-        <a href="#menu" onClick={onCloseMenu}>Menu</a>
-        <a href="#process" onClick={onCloseMenu}>Deals</a>
-        <a href="#popular" onClick={onCloseMenu}>Favourite</a>
+        <a href="#products" onClick={onCloseMenu}>Menu</a>
+        <a href="#how-it-works" onClick={onCloseMenu}>Deals</a>
+        <a href="#wholesale" onClick={onCloseMenu}>Favourite</a>
         <button
           className="cart-link"
           type="button"
-          aria-label="Open cart"
+          aria-label="Відкрити кошик"
           aria-expanded={isCartOpen}
           onClick={onOpenCart}
         >
@@ -42,49 +109,125 @@ function Header({ isFloating, isMenuOpen, isCartOpen, onToggleMenu, onCloseMenu,
   );
 }
 
-function Hero() {
-  return (
-    <section className="hero" aria-label="Milton's hero">
-      <div className="hero-inner">
-        <div className="hero-copy">
-          <p className="hero-kicker">
-            <span>IT'S A BREAK</span>
-            <span>
-              WITH <strong>COFFEE</strong>
-            </span>
-          </p>
-          <h1 className="coffee-repeat" aria-label="Coffee">
-            {Array.from({ length: 5 }, (_, i) => (
-              <span key={i}>COFFEE</span>
-            ))}
-          </h1>
-        </div>
-        <div className="hero-visual" aria-hidden="true">
-          <img className="hero-image" src={heroReference} alt="" />
-        </div>
+function HeroArt({ slide }) {
+  if (slide.image) {
+    return (
+      <div className={`hero-art ${slide.artClass}`} aria-hidden="true">
+        <img className="hero-reference-image" src={slide.image} alt="" />
+        <span className="paper-ring"></span>
+        <span className="coffee-wall">COFFEE<br />COFFEE<br />COFFEE</span>
+        <span className="coffee-splash"></span>
+        <span className="macaron macaron-one"></span>
+        <span className="macaron macaron-two"></span>
+        <span className="pack pack-large">Coffee<br />Point</span>
+        <span className="cup">CP</span>
+        <span className="bean bean-1"></span>
+        <span className="bean bean-2"></span>
+        <span className="bean bean-3"></span>
+        <span className="bean bean-4"></span>
+        <span className="bean bean-5"></span>
       </div>
-      <div className="hero-indicator" aria-hidden="true">
-        <span className="hero-indicator-pill is-active"></span>
-        <span className="hero-indicator-pill"></span>
-        <span className="hero-indicator-pill"></span>
+    );
+  }
+
+  if (slide.id === "office") {
+    return (
+      <div className={`hero-art ${slide.artClass}`} aria-hidden="true">
+        <span className="paper-ring"></span>
+        <span className="coffee-wall">COFFEE<br />COFFEE<br />COFFEE</span>
+        <span className="coffee-splash"></span>
+        <span className="pack pack-large">Office<br />Blend</span>
+        <span className="takeaway-cup">HOT</span>
+        <span className="bean bean-1"></span>
+        <span className="bean bean-2"></span>
+        <span className="bean bean-3"></span>
+        <span className="bean bean-4"></span>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`hero-art ${slide.artClass}`} aria-hidden="true">
+      <span className="paper-ring"></span>
+      <span className="coffee-wall">COFFEE<br />COFFEE<br />COFFEE</span>
+      <span className="coffee-splash"></span>
+      <span className="stick stick-one">Latte</span>
+      <span className="stick stick-two">Cappuccino</span>
+      <span className="stick stick-three">Classic</span>
+      <span className="cup">CP</span>
+      <span className="bean bean-1"></span>
+      <span className="bean bean-2"></span>
+      <span className="bean bean-3"></span>
+    </div>
+  );
+}
+
+function Hero({ heroIndex, onHeroChange }) {
+  useEffect(() => {
+    const timer = window.setInterval(() => onHeroChange((heroIndex + 1) % heroSlides.length), 5000);
+    return () => window.clearInterval(timer);
+  }, [heroIndex, onHeroChange]);
+
+  return (
+    <section className="hero" aria-label="Акції Coffee Point">
+      <div className="hero-slider" data-hero-slider>
+        {heroSlides.map((slide, index) => (
+          <article
+            className={`hero-slide${slide.poster ? " hero-slide-poster" : ""}${index === heroIndex ? " is-active" : ""}`}
+            data-accent={slide.accent}
+            key={slide.id}
+          >
+            {slide.poster ? (
+              <img className="hero-poster-image" src={slide.poster} alt="Coffee Point coffee banner" />
+            ) : (
+              <>
+                <div className="hero-copy hero-copy-reference">
+                  <p className="hero-kicker">
+                    <span>{slide.kicker[0]}</span>
+                    <span>{slide.kicker[1]} <strong>{slide.highlight}</strong></span>
+                  </p>
+                  <h1 className="coffee-repeat" aria-label="Coffee">
+                    {slide.repeat.map((item, repeatIndex) => <span key={`${slide.id}-${repeatIndex}`}>{item}</span>)}
+                  </h1>
+                </div>
+                <HeroArt slide={slide} />
+              </>
+            )}
+          </article>
+        ))}
+      </div>
+      <div className="hero-controls" aria-label="Керування банером">
+        <button type="button" aria-label="Попередній слайд" onClick={() => onHeroChange((heroIndex - 1 + heroSlides.length) % heroSlides.length)}>‹</button>
+        <div className="hero-dots" data-hero-dots>
+          {heroSlides.map((slide, index) => (
+            <button
+              className={`hero-dot${index === heroIndex ? " is-active" : ""}`}
+              type="button"
+              aria-label={`Показати слайд ${index + 1}`}
+              key={`${slide.id}-dot`}
+              onClick={() => onHeroChange(index)}
+            ></button>
+          ))}
+        </div>
+        <button type="button" aria-label="Наступний слайд" onClick={() => onHeroChange((heroIndex + 1) % heroSlides.length)}>›</button>
       </div>
     </section>
   );
 }
 
-function CategoryTabs({ activeIndex, onChange }) {
+function CategoryTabs({ activeCategoryIndex, onCategoryChange }) {
   return (
-    <div className="category-tabs" role="tablist" aria-label="Product categories">
+    <div className="category-tabs" role="tablist" aria-label="Розділи товарів" data-category-tabs>
       {categories.map((category, index) => (
         <button
-          key={category.id}
-          className={`category-tab${index === activeIndex ? " is-active" : ""}`}
+          className="category-tab"
           type="button"
           role="tab"
-          aria-selected={index === activeIndex}
-          onClick={() => onChange(index)}
+          aria-selected={index === activeCategoryIndex}
+          key={category.id}
+          onClick={() => onCategoryChange(index)}
         >
-          {index === activeIndex && <span className="tab-bean" aria-hidden="true"></span>}
+          {index === activeCategoryIndex && <span className="tab-bean" aria-hidden="true"></span>}
           {category.title}
         </button>
       ))}
@@ -92,42 +235,53 @@ function CategoryTabs({ activeIndex, onChange }) {
   );
 }
 
-function FeaturedProduct({ featured, quantity, onQuantityChange, onAddToCart }) {
+function CategoryOverview({ category, activeProduct, quantity, onQuantityChange, onOpenCart }) {
+  const orbitProduct = activeProduct ?? category.visual;
+  const featuredProduct = activeProduct ?? category.products[0];
+
   return (
-    <div className="featured-product">
-      <div className="featured-visual" aria-hidden="true">
-        <div className="milk-orbit">
-          <div className="orbit-center-cup"></div>
-          {featured.variants.map((label, index) => (
-            <div className={`orbit-node orbit-node-${index + 1}`} key={label}>
-              <span className="orbit-label">{label}</span>
+    <div className="category-overview category-overview--featured">
+      <div className="category-visual" aria-hidden="true">
+        <div className="product-orbit">
+          <div className="orbit-ring"></div>
+          <span className="orbit-label orbit-label--top">Світлий</span>
+          <span className="orbit-label orbit-label--left">Молоко</span>
+          <span className="orbit-label orbit-label--right">Темний</span>
+          {orbitProduct.image ? (
+            <div
+              className={`orbit-product has-pack-image ${packSizeClass(orbitProduct)}`.trim()}
+              data-shape={orbitProduct.shape}
+            >
+              <img className="product-pack-image" src={orbitProduct.image} alt="" />
             </div>
-          ))}
+          ) : (
+            <div className="orbit-product" data-shape={category.visual.shape}>
+              <ProductLabel value={category.visual.label} />
+            </div>
+          )}
         </div>
       </div>
-      <div className="featured-copy">
-        <h2>{featured.name}</h2>
-        <div className="featured-rating">
-          <span className="stars" aria-label={`${featured.rating} out of 5 stars`}>
-            {Array.from({ length: featured.rating }, (_, i) => (
-              <span key={i} aria-hidden="true">★</span>
-            ))}
-          </span>
-          <span className="featured-price">{featured.price}</span>
+      <div className="category-copy category-copy--featured">
+        <span className="eyebrow">{category.kicker}</span>
+        <h3>{featuredProduct.name}</h3>
+        <div className="featured-meta">
+          <span className="featured-rating" aria-label="5 зірок">★★★★★</span>
+          <span className="featured-price">{featuredProduct.price}</span>
         </div>
-        <p>{featured.description}</p>
+        <p>{featuredProduct.taste ?? category.description}</p>
+        <p className="featured-weight">{featuredProduct.weight}</p>
         <div className="featured-actions">
-          <div className="quantity-control" aria-label="Quantity">
-            <button type="button" aria-label="Decrease quantity" onClick={() => onQuantityChange(Math.max(1, quantity - 1))}>
+          <div className="quantity-control" aria-label="Кількість">
+            <button type="button" aria-label="Зменшити" onClick={() => onQuantityChange(Math.max(1, quantity - 1))}>
               −
             </button>
             <span>{quantity}</span>
-            <button type="button" aria-label="Increase quantity" onClick={() => onQuantityChange(quantity + 1)}>
+            <button type="button" aria-label="Збільшити" onClick={() => onQuantityChange(quantity + 1)}>
               +
             </button>
           </div>
-          <button className="btn-primary" type="button" onClick={onAddToCart}>
-            ADD TO CART
+          <button className="buy-button buy-button--featured" type="button" onClick={onOpenCart}>
+            Додати в кошик
           </button>
         </div>
       </div>
@@ -135,124 +289,209 @@ function FeaturedProduct({ featured, quantity, onQuantityChange, onAddToCart }) 
   );
 }
 
-function ProcessSection() {
-  return (
-    <section className="process" id="process">
-      <div className="process-header">
-        <h2>The Best Taste From The Process</h2>
-        <p>
-          Every cup starts with carefully selected beans, roasted by hand and sourced through
-          direct trade partnerships. We believe great coffee is built step by step — from farm to your break.
-        </p>
-      </div>
-      <div className="process-cards">
-        {processFeatures.map((feature) => (
-          <article className={`process-card process-card--${feature.tone}`} key={feature.title}>
-            <span className={`process-icon process-icon--${feature.icon}`} aria-hidden="true"></span>
-            <h3>{feature.title}</h3>
-          </article>
-        ))}
-      </div>
-      <div className="scroll-hint" aria-hidden="true">
-        <span className="scroll-hint-ring"></span>
-        <span className="scroll-hint-text">SCROLL DOWN</span>
-        <span className="scroll-hint-arrow">↓</span>
-      </div>
-    </section>
-  );
-}
+const POPULAR_PRODUCT_COUNT = 4;
 
-function ProductCard({ product, onAddToCart }) {
+function ProductGrid({ activeCategoryIndex, hoveredProductIndex, onProductHover, onProductChange, onOpenCart }) {
+  const category = categories[activeCategoryIndex];
+  const popularProducts = category.products.slice(0, POPULAR_PRODUCT_COUNT);
+  const rowRef = useRef(null);
+
+  useEffect(() => {
+    const row = rowRef.current;
+    if (!row) {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -8% 0px" },
+    );
+
+    observer.observe(row);
+    return () => observer.disconnect();
+  }, [activeCategoryIndex, popularProducts]);
+
   return (
-    <article className="flavor-card">
-      <div className="flavor-card-top">
-        <span className="flavor-tag">{product.tag}</span>
-        <div className="flavor-cup">
-          {product.image ? (
-            <img src={product.image} alt="" className="flavor-pack" />
-          ) : (
-            <span className="flavor-cup-shape" aria-hidden="true"></span>
-          )}
+    <div className="product-showcase product-showcase--popular">
+      <h2 className="popular-section-title">Наші популярні смаки</h2>
+      <div className="product-grid product-grid--popular" data-product-grid aria-live="polite">
+        <div
+          className="product-grid-row"
+          key={`${category.id}-popular`}
+          ref={rowRef}
+        >
+          {popularProducts.map((product, productIndex) => (
+            <article
+              className={`product-card${productIndex % 2 === 1 ? " product-card--alt-btn" : ""}`}
+              data-product-index={productIndex}
+              key={`${category.id}-${product.name}-${productIndex}`}
+              onMouseEnter={() => onProductHover(productIndex)}
+              onMouseLeave={() => onProductHover(null)}
+              onFocus={() => onProductHover(productIndex)}
+              onBlur={() => onProductHover(null)}
+            >
+              <div className="product-card-top">
+                <span className="product-flavor-tag">{category.title}</span>
+                <ProductVisual product={product} className="product-image" />
+              </div>
+              <div className="product-card-bottom">
+                <div className="product-card-copy">
+                  <h4>{product.name}</h4>
+                  <p>{product.taste}</p>
+                  <span className="product-card-meta">{product.price}</span>
+                </div>
+                <button
+                  className="buy-button buy-button--card"
+                  type="button"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    onProductChange(productIndex);
+                    onOpenCart();
+                  }}
+                >
+                  Купити
+                </button>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
-      <div className="flavor-card-bottom">
-        <h4>{product.name}</h4>
-        <span className="flavor-price">{product.price}</span>
-        <button
-          className={`flavor-btn flavor-btn--${product.buttonStyle}`}
-          type="button"
-          onClick={onAddToCart}
-        >
-          ADD TO CART
-        </button>
+      <div className="popular-pagination" aria-hidden="true">
+        <span className="popular-dot is-active"></span>
+        <span className="popular-dot"></span>
+        <span className="popular-dot"></span>
       </div>
-    </article>
+    </div>
   );
 }
 
-function PopularFlavors({ products, onAddToCart }) {
-  const [page, setPage] = useState(0);
-  const pages = 3;
+function Categories({
+  activeCategoryIndex,
+  activeProductIndex,
+  hoveredProductIndex,
+  featuredQuantity,
+  onFeaturedQuantityChange,
+  onCategoryChange,
+  onProductHover,
+  onProductChange,
+  onOpenCart,
+}) {
+  const category = categories[activeCategoryIndex];
+  const overviewProduct =
+    hoveredProductIndex != null ? category.products[hoveredProductIndex] : null;
 
-  return (
-    <section className="popular" id="popular">
-      <h2 className="popular-heading">OUR POPULAR FLAVOUR</h2>
-      <div className="popular-grid">
-        {products.map((product) => (
-          <ProductCard key={product.name} product={product} onAddToCart={onAddToCart} />
-        ))}
-      </div>
-      <div className="popular-dots" aria-label="Product pages">
-        {Array.from({ length: pages }, (_, i) => (
-          <button
-            key={i}
-            type="button"
-            className={`popular-dot${i === page ? " is-active" : ""}`}
-            aria-label={`Page ${i + 1}`}
-            onClick={() => setPage(i)}
-          ></button>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function Newsletter() {
-  const [email, setEmail] = useState("");
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    setEmail("");
+  function handleFeaturedAdd() {
+    if (overviewProduct) {
+      const index = category.products.indexOf(overviewProduct);
+      if (index >= 0) {
+        onProductChange(index);
+      }
+    } else {
+      onProductChange(0);
+    }
+    onOpenCart();
   }
 
   return (
-    <section className="newsletter" id="newsletter">
-      <div className="newsletter-copy">
-        <h2>Get New Updates And Discount Offers.</h2>
+    <section className="categories" id="products">
+      <CategoryTabs activeCategoryIndex={activeCategoryIndex} onCategoryChange={onCategoryChange} />
+      <CategoryOverview
+        category={category}
+        activeProduct={overviewProduct}
+        quantity={featuredQuantity}
+        onQuantityChange={onFeaturedQuantityChange}
+        onOpenCart={handleFeaturedAdd}
+      />
+      <ProductGrid
+        activeCategoryIndex={activeCategoryIndex}
+        hoveredProductIndex={hoveredProductIndex}
+        onProductHover={onProductHover}
+        onProductChange={onProductChange}
+        onOpenCart={onOpenCart}
+      />
+    </section>
+  );
+}
+
+function Steps() {
+  return (
+    <section className="steps steps--layout-ref" id="how-it-works">
+      <div className="steps-header-split">
+        <div className="steps-header-title">
+          <span className="eyebrow">Просто замовити</span>
+          <h2>Найкращий смак від процесу</h2>
+        </div>
         <p>
-          Subscribe to our newsletter and be the first to know about seasonal blends,
-          exclusive deals, and fresh arrivals from Milton's.
+          Купуйте у нас, якщо хочете швидко отримати зрозумілий вибір, стабільну якість
+          та підтримку на кожному кроці — від зерна до чашки.
         </p>
-        <form className="newsletter-form" onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="Your Email..."
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            required
-          />
-          <button className="btn-primary" type="submit">
-            SUBSCRIBE
+      </div>
+      <div className="step-grid">
+        <article className="step-card">
+          <span className="step-icon step-icon--roast" aria-hidden="true"></span>
+          <h3>Ручна обсмажка</h3>
+          <p>Контрольована обсмажка для стабільного аромату в кожній пачці.</p>
+        </article>
+        <article className="step-card step-card--accent">
+          <span className="step-icon step-icon--trade" aria-hidden="true"></span>
+          <h3>Пряма закупівля</h3>
+          <p>Працюємо без зайвих посередників — свіжіше зерно та чесніша ціна.</p>
+        </article>
+        <article className="step-card">
+          <span className="step-icon step-icon--organic" aria-hidden="true"></span>
+          <h3>Органічний смак</h3>
+          <p>Збалансовані суміші для щоденної чашки вдома та в офісі.</p>
+        </article>
+      </div>
+      <div className="scroll-hint" aria-hidden="true">
+        <span className="scroll-hint-ring"></span>
+        <span className="scroll-hint-label">Гортайте вниз</span>
+      </div>
+    </section>
+  );
+}
+
+function Wholesale() {
+  return (
+    <section className="wholesale wholesale--layout-ref" id="wholesale">
+      <div className="wholesale-copy">
+        <span className="eyebrow">Співпраця</span>
+        <h2>Новини та знижки для партнерів</h2>
+        <p>
+          Працюємо з офісами, магазинами, кав'ярнями та партнерами. Підпишіться на розсилку —
+          дізнавайтесь про акції, нові пачки та умови оптових поставок.
+        </p>
+        <form
+          className="subscribe-form"
+          onSubmit={(event) => {
+            event.preventDefault();
+          }}
+        >
+          <input type="email" name="email" placeholder="Ваш email..." required />
+          <button className="buy-button buy-button--subscribe" type="submit">
+            Підписатися
           </button>
         </form>
+        <div className="messenger-buttons" aria-label="Зв'язатися">
+          <a href="https://t.me/" target="_blank" rel="noreferrer">Telegram</a>
+          <a href="viber://chat" rel="noreferrer">Viber</a>
+          <a href="https://wa.me/" target="_blank" rel="noreferrer">WhatsApp</a>
+        </div>
       </div>
-      <div className="newsletter-art" aria-hidden="true">
-        <span className="newsletter-bag">MILTON'S</span>
-        <span className="newsletter-cup"></span>
-        <span className="newsletter-bean newsletter-bean-1"></span>
-        <span className="newsletter-bean newsletter-bean-2"></span>
-        <span className="newsletter-bean newsletter-bean-3"></span>
-        <span className="newsletter-bean newsletter-bean-4"></span>
+      <div className="wholesale-art" aria-hidden="true">
+        <span className="bag">COFFEE<br />POINT</span>
+        <span className="dark-cup">CP</span>
+        <span className="bean bean-1"></span>
+        <span className="bean bean-2"></span>
+        <span className="bean bean-3"></span>
+        <span className="bean bean-4"></span>
       </div>
     </section>
   );
@@ -260,67 +499,73 @@ function Newsletter() {
 
 function Footer() {
   return (
-    <footer className="footer" id="contacts">
+    <footer className="footer footer--layout-ref" id="contacts">
       <div className="footer-grid">
         <div className="footer-brand">
-          <span className="footer-logo">MILTON'S</span>
+          <a className="logo footer-logo" href="#top">
+            <span className="logo-mark">CP</span>
+            <span>Coffee Point</span>
+          </a>
           <p>
-            Crafting exceptional coffee experiences since day one. From hand-roasted beans
-            to your perfect cup — Milton's brings warmth to every break.
+            Свіжа кава для дому, офісу та бізнесу. Допомагаємо обрати формат, який
+            стабільно смакує саме вам.
           </p>
         </div>
         <div className="footer-col">
-          <h3>Page</h3>
-          <a href="#top">Home</a>
-          <a href="#menu">Menu</a>
-          <a href="#process">Deals</a>
-          <a href="#popular">Favourite</a>
+          <h3>Сторінки</h3>
+          <a href="#top">Головна</a>
+          <a href="#products">Товари</a>
+          <a href="#how-it-works">Як купити</a>
+          <a href="#wholesale">Опт</a>
         </div>
         <div className="footer-col">
-          <h3>Links</h3>
-          <a href="https://facebook.com" target="_blank" rel="noreferrer">Facebook</a>
-          <a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a>
-          <a href="https://pinterest.com" target="_blank" rel="noreferrer">Pinterest</a>
-          <a href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
+          <h3>Зв'язок</h3>
+          <a href="https://t.me/" target="_blank" rel="noreferrer">Telegram</a>
+          <a href="https://wa.me/" target="_blank" rel="noreferrer">WhatsApp</a>
+          <a href="mailto:hello@coffee-point.ua">Email</a>
         </div>
         <div className="footer-col footer-contacts">
-          <h3>Contacts</h3>
-          <p><span className="contact-icon">📍</span> House No 123, Coffee Street, Bean City</p>
-          <p><span className="contact-icon">📞</span> +1 (555) 123-4567</p>
-          <p><span className="contact-icon">✉️</span> hello@miltons.coffee</p>
-          <p><span className="contact-icon">🌐</span> www.miltons.coffee</p>
+          <h3>Контакти</h3>
+          <p>м. Київ, Україна</p>
+          <p>+38 (000) 000-00-00</p>
+          <p>hello@coffee-point.ua</p>
+          <p>coffee-point.ua</p>
         </div>
       </div>
-      <div className="footer-bottom">
-        All copyrights are reserved by YourCompanyName
-      </div>
+      <div className="footer-bottom">© 2026 Coffee Point. Усі права захищені.</div>
     </footer>
   );
 }
 
-function CartDrawer({ isOpen, product, categoryTitle, onClose }) {
-  if (!product) return null;
+function CartDrawer({ isOpen, activeCategoryIndex, activeProductIndex, onClose }) {
+  const category = categories[activeCategoryIndex];
+  const product = category.products[activeProductIndex ?? 0];
 
   return (
     <>
-      <aside className={`cart-drawer${isOpen ? " is-open" : ""}`} aria-hidden={!isOpen}>
+      <aside className="cart-drawer" aria-hidden={!isOpen} aria-labelledby="cart-title" data-cart-drawer>
         <div className="cart-drawer-header">
-          <h2>Cart</h2>
-          <button className="cart-close" type="button" aria-label="Close cart" onClick={onClose}>
-            ×
-          </button>
+          <div>
+            <span className="cart-eyebrow">Ваш вибір</span>
+            <h2 id="cart-title">Кошик</h2>
+          </div>
+          <button className="cart-close" type="button" aria-label="Закрити кошик" onClick={onClose}>×</button>
         </div>
-        <div className="cart-item">
-          <span className="cart-category">{categoryTitle}</span>
-          <h3>{product.name}</h3>
-          <p>{product.taste ?? product.description ?? ""}</p>
-          <strong>{product.price}</strong>
+        <div className="cart-product">
+          <ProductVisual product={product} className="cart-product-image" />
+          <div className="cart-product-info">
+            <span>{category.title}</span>
+            <h3>{product.name}</h3>
+            <p>{product.taste}</p>
+            <div className="cart-product-meta">
+              <span>{product.weight}</span>
+              <strong>{product.price}</strong>
+            </div>
+          </div>
         </div>
-        <button className="btn-primary cart-checkout" type="button">
-          CHECKOUT
-        </button>
+        <button className="cart-checkout" type="button">Оформити замовлення</button>
       </aside>
-      {isOpen && <button className="cart-scrim" type="button" aria-label="Close cart" onClick={onClose}></button>}
+      <button className="cart-scrim" type="button" aria-label="Закрити кошик" onClick={onClose}></button>
     </>
   );
 }
@@ -329,12 +574,11 @@ export default function App() {
   const [isFloating, setIsFloating] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [heroIndex, setHeroIndex] = useState(0);
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
-  const [quantity, setQuantity] = useState(2);
-  const [cartProduct, setCartProduct] = useState(null);
-
-  const category = categories[activeCategoryIndex];
-  const featured = category.featured;
+  const [activeProductIndex, setActiveProductIndex] = useState(null);
+  const [hoveredProductIndex, setHoveredProductIndex] = useState(null);
+  const [featuredQuantity, setFeaturedQuantity] = useState(2);
 
   const bodyClassName = useMemo(() => {
     const classes = [];
@@ -359,7 +603,9 @@ export default function App() {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth > 900) setIsMenuOpen(false);
+      if (window.innerWidth > 900) {
+        setIsMenuOpen(false);
+      }
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -367,14 +613,22 @@ export default function App() {
 
   useEffect(() => {
     const handleKeydown = (event) => {
-      if (event.key === "Escape") setIsCartOpen(false);
+      if (event.key === "Escape") {
+        setIsCartOpen(false);
+      }
     };
     document.addEventListener("keydown", handleKeydown);
     return () => document.removeEventListener("keydown", handleKeydown);
   }, []);
 
-  function openCart(product) {
-    setCartProduct(product ?? { name: featured.name, price: featured.price, description: featured.description });
+  function handleCategoryChange(index) {
+    setActiveCategoryIndex(index);
+    setActiveProductIndex(null);
+    setHoveredProductIndex(null);
+    setFeaturedQuantity(2);
+  }
+
+  function openCart() {
     setIsMenuOpen(false);
     setIsCartOpen(true);
   }
@@ -385,30 +639,31 @@ export default function App() {
         isFloating={isFloating}
         isMenuOpen={isMenuOpen}
         isCartOpen={isCartOpen}
-        onToggleMenu={() => setIsMenuOpen((v) => !v)}
+        onToggleMenu={() => setIsMenuOpen((value) => !value)}
         onCloseMenu={() => setIsMenuOpen(false)}
-        onOpenCart={() => openCart()}
+        onOpenCart={openCart}
       />
       <CartDrawer
         isOpen={isCartOpen}
-        product={cartProduct}
-        categoryTitle={category.title}
+        activeCategoryIndex={activeCategoryIndex}
+        activeProductIndex={activeProductIndex}
         onClose={() => setIsCartOpen(false)}
       />
       <main id="top">
-        <Hero />
-        <section className="menu-section" id="menu">
-          <CategoryTabs activeIndex={activeCategoryIndex} onChange={setActiveCategoryIndex} />
-          <FeaturedProduct
-            featured={featured}
-            quantity={quantity}
-            onQuantityChange={setQuantity}
-            onAddToCart={() => openCart(featured)}
-          />
-        </section>
-        <ProcessSection />
-        <PopularFlavors products={category.products} onAddToCart={(p) => openCart(p)} />
-        <Newsletter />
+        <Hero heroIndex={heroIndex} onHeroChange={setHeroIndex} />
+        <Categories
+          activeCategoryIndex={activeCategoryIndex}
+          activeProductIndex={activeProductIndex}
+          hoveredProductIndex={hoveredProductIndex}
+          featuredQuantity={featuredQuantity}
+          onFeaturedQuantityChange={setFeaturedQuantity}
+          onCategoryChange={handleCategoryChange}
+          onProductHover={setHoveredProductIndex}
+          onProductChange={setActiveProductIndex}
+          onOpenCart={openCart}
+        />
+        <Steps />
+        <Wholesale />
       </main>
       <Footer />
     </>
