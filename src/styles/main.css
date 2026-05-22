@@ -644,7 +644,7 @@ h1 {
   display: flex;
   gap: 20px;
   overflow-x: auto;
-  padding: 92px 4px 18px;
+  padding: 108px 4px 18px;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   scrollbar-width: thin;
@@ -654,14 +654,14 @@ h1 {
   position: relative;
   display: flex;
   flex: 0 0 245px;
-  min-height: 320px;
+  min-height: 340px;
   flex-direction: column;
   justify-content: flex-end;
   border: 1px solid var(--line);
   border-radius: 26px 26px 16px 16px;
   background: #fff;
   cursor: pointer;
-  padding: 178px 18px 18px;
+  padding: 18px;
   scroll-snap-align: start;
   text-align: left;
   transition:
@@ -769,18 +769,19 @@ h1 {
   transform: scale(1.08);
 }
 
-.product-image.has-pack-image {
+.product-card > .product-image.has-pack-image {
+  top: auto;
+  bottom: 250px;
   width: 136px;
   height: 198px;
-  top: -62px;
   background: transparent;
   box-shadow: none;
 }
 
-.product-card.is-active .product-image.has-pack-image {
+.product-card.is-active > .product-image.has-pack-image {
   width: 158px;
   height: 224px;
-  top: -84px;
+  bottom: 264px;
 }
 
 .cart-product-image.has-pack-image {
@@ -797,14 +798,14 @@ h1 {
   height: 286px;
 }
 
-.product-image.has-pack-image.pack-size-lg {
-  top: -92px;
+.product-card > .product-image.has-pack-image.pack-size-lg {
+  bottom: 258px;
 }
 
-.product-card.is-active .product-image.has-pack-image.pack-size-lg {
+.product-card.is-active > .product-image.has-pack-image.pack-size-lg {
   width: 212px;
   height: 318px;
-  top: -112px;
+  bottom: 270px;
 }
 
 .product-card.is-active .product-image.has-pack-image.pack-size-lg .product-pack-image {
@@ -2501,37 +2502,38 @@ body {
     gap: 14px;
     margin-right: -16px;
     margin-left: -16px;
-    padding: 84px 16px 18px;
+    padding: 96px 16px 18px;
     scroll-padding-left: 16px;
   }
 
   .product-card {
     flex-basis: min(78vw, 245px);
-    min-height: 306px;
-    padding: 168px 16px 16px;
+    min-height: 320px;
+    padding: 16px;
   }
-  .product-image.has-pack-image {
+
+  .product-card > .product-image.has-pack-image {
     width: 124px;
     height: 182px;
-    top: -54px;
+    bottom: 236px;
   }
 
-  .product-card.is-active .product-image.has-pack-image {
+  .product-card.is-active > .product-image.has-pack-image {
     width: 142px;
     height: 206px;
-    top: -70px;
+    bottom: 232px;
   }
 
-  .product-image.has-pack-image.pack-size-lg {
+  .product-card > .product-image.has-pack-image.pack-size-lg {
     width: 158px;
     height: 238px;
-    top: -78px;
+    bottom: 252px;
   }
 
-  .product-card.is-active .product-image.has-pack-image.pack-size-lg {
+  .product-card.is-active > .product-image.has-pack-image.pack-size-lg {
     width: 178px;
     height: 268px;
-    top: -96px;
+    bottom: 240px;
   }
 
   .orbit-product.has-pack-image.pack-size-lg {
