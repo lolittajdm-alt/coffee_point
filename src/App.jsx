@@ -296,13 +296,6 @@ function Categories({ activeCategoryIndex, activeProductIndex, onCategoryChange,
   const category = categories[activeCategoryIndex];
   return (
     <section className="categories" id="products">
-      <div className="section-heading">
-        <span className="eyebrow">Асортимент</span>
-        <p>
-          Кожна категорія має окремий смаковий профіль, формат використання і власну
-          лінійку товарів.
-        </p>
-      </div>
       <CategoryTabs activeCategoryIndex={activeCategoryIndex} onCategoryChange={onCategoryChange} />
       <CategoryOverview category={category} />
       <ProductCarousel
