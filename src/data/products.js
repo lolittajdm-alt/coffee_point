@@ -19,7 +19,6 @@ export const categories = [
         price: "від 640 грн",
         shape: "pack",
         image: beansPackArabica,
-        packSize: "lg",
       },
       {
         name: "Espresso Bar",
@@ -36,7 +35,6 @@ export const categories = [
         price: "від 360 грн",
         shape: "pack",
         image: beansPackCrema,
-        packSize: "lg",
       },
       {
         name: "Dark Roast",
