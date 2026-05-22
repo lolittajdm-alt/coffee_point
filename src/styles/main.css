@@ -2708,3 +2708,20 @@ body {
 .category-tabs button.category-tab:focus-visible {
   color: #20100c !important;
 }
+
+
+/* Keep coffee category labels above the hero fade overlay */
+.categories {
+  z-index: 8;
+}
+
+.category-tabs {
+  position: relative;
+  z-index: 9;
+}
+
+.category-tabs button.category-tab {
+  color: #20100c !important;
+  font-weight: 900 !important;
+  opacity: 1 !important;
+}
