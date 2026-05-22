@@ -705,7 +705,7 @@ h1 {
   align-items: flex-end;
   overflow-x: auto;
   overflow-y: visible;
-  padding: clamp(72px, 9vw, 100px) 4px 24px;
+  padding: clamp(120px, 14vw, 160px) 4px 24px;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   scrollbar-width: thin;
@@ -794,13 +794,13 @@ h1 {
   height: 100%;
   object-fit: contain;
   object-position: center bottom;
-  transform: scale(1.04);
+  transform: scale(2.08);
   filter: drop-shadow(0 18px 28px rgba(60, 31, 23, 0.24));
   transition: transform 280ms ease, filter 280ms ease;
 }
 
 .product-card.is-active .product-card-top .product-pack-image {
-  transform: scale(1.22);
+  transform: scale(2.44);
   filter: drop-shadow(0 26px 38px rgba(60, 31, 23, 0.3));
 }
 
@@ -2561,7 +2561,7 @@ body {
   }
 
   .product-card.is-active .product-card-top .product-pack-image {
-    transform: scale(1.18);
+    transform: scale(2.36);
   }
 
   .orbit-product.has-pack-image.pack-size-lg {
