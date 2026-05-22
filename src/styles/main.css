@@ -624,23 +624,32 @@ h1 {
 
 .product-showcase {
   position: relative;
-  z-index: 3;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   gap: clamp(88px, 10vw, 128px);
   margin-top: clamp(44px, 5.5vw, 72px);
+  isolation: isolate;
 }
 
 .product-showcase .product-heading {
   margin-bottom: 0;
   position: relative;
-  z-index: 2;
+  z-index: 1;
+  background: transparent;
+}
+
+.product-showcase .product-heading::after,
+.product-showcase .product-heading::before {
+  display: none;
+  content: none;
 }
 
 .product-showcase .product-carousel {
   margin-top: 0;
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  overflow: visible;
 }
 
 .product-heading {
@@ -792,6 +801,7 @@ h1 {
 }
 
 .product-card > .product-image.has-pack-image {
+  z-index: 3;
   top: auto;
   bottom: 250px;
   width: 136px;
@@ -2212,7 +2222,7 @@ body.cart-open .cart-scrim {
 }
 
 .hero::after {
-  z-index: 7;
+  z-index: 4;
   height: 230px;
   background: linear-gradient(
     180deg,
