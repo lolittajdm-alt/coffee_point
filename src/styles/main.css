@@ -625,15 +625,22 @@ h1 {
 .product-showcase {
   position: relative;
   z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(88px, 10vw, 128px);
   margin-top: clamp(44px, 5.5vw, 72px);
 }
 
 .product-showcase .product-heading {
-  margin-bottom: 28px;
+  margin-bottom: 0;
+  position: relative;
+  z-index: 2;
 }
 
 .product-showcase .product-carousel {
-  margin-top: 12px;
+  margin-top: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .product-heading {
@@ -2506,10 +2513,11 @@ body {
 
   .product-showcase {
     margin-top: 36px;
+    gap: 72px;
   }
 
   .product-showcase .product-heading {
-    margin-bottom: 18px;
+    margin-bottom: 0;
   }
 
   .product-heading {
