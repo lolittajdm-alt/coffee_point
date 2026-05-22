@@ -2693,3 +2693,18 @@ body {
 .category-tabs .category-tab:focus-visible {
   color: var(--brown);
 }
+
+
+/* Force dark desktop labels for coffee category buttons */
+.category-tabs button.category-tab {
+  color: #20100c !important;
+  font-weight: 900 !important;
+  opacity: 1 !important;
+  text-shadow: none;
+}
+
+.category-tabs button.category-tab[aria-selected="true"],
+.category-tabs button.category-tab:hover,
+.category-tabs button.category-tab:focus-visible {
+  color: #20100c !important;
+}
