@@ -483,9 +483,9 @@ h1 {
 
 .categories {
   border-radius: var(--radius-lg);
-  background: var(--paper-strong);
+  background: transparent;
   padding: clamp(28px, 5vw, 58px);
-  box-shadow: var(--shadow);
+  box-shadow: none;
 }
 
 .section-heading {
@@ -691,41 +691,53 @@ h1 {
   justify-content: center;
 }
 
-.product-showcase .product-heading h3 {
-  margin: 0;
-  max-width: 16ch;
-  font-size: clamp(1.35rem, 2.8vw, 2.1rem);
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-  text-transform: uppercase;
+.product-showcase .product-heading {
+  margin-bottom: clamp(28px, 4vw, 40px);
 }
 
-.product-carousel {
+.product-grid {
   position: relative;
   z-index: 12;
-  display: flex;
-  gap: 22px;
-  align-items: flex-end;
-  overflow-x: auto;
-  overflow-y: visible;
-  padding: clamp(64px, 8vw, 88px) 4px 24px;
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: thin;
+  display: grid;
+  gap: clamp(28px, 4vw, 40px);
+  overflow: visible;
+  padding: clamp(96px, 11vw, 128px) 0 clamp(12px, 2vw, 20px);
+}
+
+.product-grid-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(16px, 2.2vw, 22px);
+  overflow: visible;
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 560ms ease,
+    transform 560ms ease;
+}
+
+.product-grid-row.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (min-width: 761px) and (max-width: 1099px) {
+  .product-grid-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 .product-card {
   display: grid;
   grid-template-rows: 7fr 3fr;
-  flex: 0 0 268px;
-  height: clamp(360px, 42vw, 420px);
+  width: 100%;
+  height: clamp(360px, 28vw, 400px);
+  min-height: 360px;
   overflow: visible;
   border: 1px solid #e0d6cc;
   border-radius: 28px 28px 18px 18px;
   background: transparent;
   cursor: pointer;
-  scroll-snap-align: center;
   text-align: left;
   transition:
     border-color 220ms ease,
@@ -817,9 +829,11 @@ h1 {
   position: relative;
   z-index: 2;
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   justify-content: space-between;
   gap: 12px;
+  min-height: 148px;
   padding: 18px 16px 16px;
   border-radius: 0 0 18px 18px;
   background: #4a2c20;
@@ -838,7 +852,7 @@ h1 {
 }
 
 .product-card-copy p {
-  min-height: 0;
+  min-height: 2.9em;
   margin: 0 0 8px;
   color: rgba(255, 248, 236, 0.82);
   font-size: 0.74rem;
@@ -881,6 +895,35 @@ h1 {
 
 .product-card.is-active .product-card-bottom .buy-button--card:hover {
   background: #29130e;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .product-card:hover {
+    border-color: #d4b896;
+    box-shadow: 0 18px 36px rgba(60, 31, 23, 0.14);
+  }
+
+  .product-card:hover .product-card-top .product-image {
+    transform: translate(-50%, -44%);
+  }
+
+  .product-card:hover .product-card-top .product-pack-image {
+    transform: scale(3);
+    filter: drop-shadow(0 26px 38px rgba(60, 31, 23, 0.3));
+  }
+
+  .product-card:hover .product-card-top .product-image:not(.has-pack-image) {
+    transform: translate(-50%, -44%) scale(1.12);
+  }
+
+  .product-card:hover .product-card-bottom .buy-button--card {
+    background: #1a100c;
+    color: #fff8ec;
+  }
+
+  .product-card:hover .product-card-bottom .buy-button--card:hover {
+    background: #29130e;
+  }
 }
 
 .steps {
@@ -2444,6 +2487,8 @@ body {
   .categories {
     border-radius: 28px;
     padding: 72px 16px 28px;
+    background: transparent;
+    box-shadow: none;
   }
 
   .section-heading {
@@ -2508,24 +2553,19 @@ body {
     margin-bottom: 32px;
   }
 
-  .product-showcase .product-heading h3 {
-    font-size: 1.25rem;
+  .product-grid {
+    gap: 22px;
+    padding: 72px 0 12px;
   }
 
-  .product-carousel {
+  .product-grid-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
-    margin-right: -16px;
-    margin-left: -16px;
-    padding: 64px 16px 20px;
-    scroll-padding-left: 16px;
-  }
-
-  .product-card {
-    flex-basis: min(82vw, 268px);
   }
 
   .product-card {
     height: 360px;
+    min-height: 340px;
   }
 
   .product-card-top {

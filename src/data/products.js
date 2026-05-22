@@ -1,7 +1,6 @@
 import beansPackArabica from "../assets/Gemini_Generated_Image_3vm40n3vm40n3vm4.png";
 import beansPackEspresso from "../assets/Gemini_Generated_Image_7v0k0t7v0k0t7v0k.png";
 import beansPackCrema from "../assets/Gemini_Generated_Image_n6886un6886un688.png";
-import beansPackDark from "../assets/Gemini_Generated_Image_bd7kqfbd7kqfbd7k.png";
 
 export const categories = [
   {
@@ -37,12 +36,12 @@ export const categories = [
         image: beansPackCrema,
       },
       {
-        name: "Dark Roast",
-        taste: "Глибоке обсмаження з нотами какао",
+        name: "Arabica Gold",
+        taste: "Карамель, горіх, м'яка кислинка",
         weight: "1 кг",
-        price: "від 610 грн",
+        price: "від 640 грн",
         shape: "pack",
-        image: beansPackDark,
+        image: beansPackArabica,
       },
     ],
   },
