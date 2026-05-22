@@ -272,14 +272,8 @@ function ProductCarousel({ activeCategoryIndex, activeProductIndex, onProductCha
   return (
     <div className="product-showcase">
       <div className="product-heading">
-        <div>
-          <span className="eyebrow">Детальний вибір</span>
-          <h3>Весь асортимент розділу в одну лінію</h3>
-        </div>
-        <div className="product-slider-controls">
-          <button type="button" aria-label="Попередній товар" onClick={() => selectProduct((activeProductIndex - 1 + category.products.length) % category.products.length)}>‹</button>
-          <button type="button" aria-label="Наступний товар" onClick={() => selectProduct((activeProductIndex + 1) % category.products.length)}>›</button>
-        </div>
+        <span className="eyebrow">Детальний вибір</span>
+        <h3>Весь асортимент розділу в одну лінію</h3>
       </div>
       <div className="product-carousel" data-product-carousel aria-live="polite" ref={carouselRef}>
         {category.products.map((product, index) => {
@@ -298,24 +292,29 @@ function ProductCarousel({ activeCategoryIndex, activeProductIndex, onProductCha
                 }
               }}
             >
-              <ProductVisual product={product} className="product-image" />
-              <h4>{product.name}</h4>
-              <p>{product.taste}</p>
-              <div className="product-meta">
-                <span>{product.weight}</span>
-                <strong>{product.price}</strong>
+              <div className="product-card-visual">
+                <span className="product-card-badge">{product.weight}</span>
+                <span className="product-card-arch" aria-hidden="true"></span>
+                <ProductVisual product={product} className="product-image" />
               </div>
-              <button
-                className="buy-button"
-                type="button"
-                onClick={(event) => {
-                  event.stopPropagation();
-                  selectProduct(index, false);
-                  onOpenCart();
-                }}
-              >
-                Купити / в кошик
-              </button>
+              <div className="product-card-body">
+                <h4>{product.name}</h4>
+                <p>{product.taste}</p>
+                <div className="product-card-footer">
+                  <strong className="product-card-price">{product.price}</strong>
+                  <button
+                    className="buy-button"
+                    type="button"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      selectProduct(index, false);
+                      onOpenCart();
+                    }}
+                  >
+                    Купити
+                  </button>
+                </div>
+              </div>
             </article>
           );
         })}
