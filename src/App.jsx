@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { categories } from "./data/products.js";
-import heroFirstBlockReference from "./assets/hero-first-block-reference.svg";
+import heroFirstBlockReference from "./assets/Gemini_Generated_Image_bd7kqfbd7kqfbd7k.png";
 
 const heroSlides = [
   {
