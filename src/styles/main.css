@@ -2682,13 +2682,14 @@ body {
 
 
 /* Improve desktop category label contrast */
-.category-tab {
-  color: rgba(60, 31, 23, 0.92);
-  font-weight: 800;
+.category-tabs .category-tab {
+  color: var(--brown);
+  font-weight: 900;
+  opacity: 1;
 }
 
-.category-tab[aria-selected="true"],
-.category-tab:hover,
-.category-tab:focus-visible {
+.category-tabs .category-tab[aria-selected="true"],
+.category-tabs .category-tab:hover,
+.category-tabs .category-tab:focus-visible {
   color: var(--brown);
 }
