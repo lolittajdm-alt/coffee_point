@@ -35,6 +35,22 @@ function ProductLabel({ value }) {
   ));
 }
 
+function ProductVisual({ product, className }) {
+  if (product.image) {
+    return (
+      <div className={`${className} has-pack-image`} data-shape={product.shape}>
+        <img className="product-pack-image" src={product.image} alt="" />
+      </div>
+    );
+  }
+
+  return (
+    <div className={className} data-shape={product.shape}>
+      <ProductLabel value={productLabel(product)} />
+    </div>
+  );
+}
+
 function Header({ isFloating, isMenuOpen, isCartOpen, onToggleMenu, onCloseMenu, onOpenCart }) {
   return (
     <header className={`site-header${isFloating ? " is-floating" : ""}`} data-header>
@@ -201,7 +217,9 @@ function CategoryTabs({ activeCategoryIndex, onCategoryChange }) {
   );
 }
 
-function CategoryOverview({ category }) {
+function CategoryOverview({ category, activeProduct }) {
+  const orbitProduct = activeProduct ?? category.products[0];
+
   return (
     <div className="category-overview">
       <div className="category-copy">
@@ -212,9 +230,15 @@ function CategoryOverview({ category }) {
       <div className="category-visual" aria-hidden="true">
         <div className="product-orbit">
           <div className="orbit-ring"></div>
-          <div className="orbit-product" data-shape={category.visual.shape}>
-            <ProductLabel value={category.visual.label} />
-          </div>
+          {orbitProduct.image ? (
+            <div className="orbit-product has-pack-image" data-shape={orbitProduct.shape}>
+              <img className="product-pack-image" src={orbitProduct.image} alt="" />
+            </div>
+          ) : (
+            <div className="orbit-product" data-shape={category.visual.shape}>
+              <ProductLabel value={category.visual.label} />
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -264,9 +288,7 @@ function ProductCarousel({ activeCategoryIndex, activeProductIndex, onProductCha
                 }
               }}
             >
-              <div className="product-image" data-shape={product.shape}>
-                <ProductLabel value={productLabel(product)} />
-              </div>
+              <ProductVisual product={product} className="product-image" />
               <h4>{product.name}</h4>
               <p>{product.taste}</p>
               <div className="product-meta">
@@ -297,7 +319,7 @@ function Categories({ activeCategoryIndex, activeProductIndex, onCategoryChange,
   return (
     <section className="categories" id="products">
       <CategoryTabs activeCategoryIndex={activeCategoryIndex} onCategoryChange={onCategoryChange} />
-      <CategoryOverview category={category} />
+      <CategoryOverview category={category} activeProduct={category.products[activeProductIndex]} />
       <ProductCarousel
         activeCategoryIndex={activeCategoryIndex}
         activeProductIndex={activeProductIndex}
@@ -416,9 +438,7 @@ function CartDrawer({ isOpen, activeCategoryIndex, activeProductIndex, onClose }
           <button className="cart-close" type="button" aria-label="Закрити кошик" onClick={onClose}>×</button>
         </div>
         <div className="cart-product">
-          <div className="cart-product-image" data-shape={product.shape}>
-            <ProductLabel value={productLabel(product)} />
-          </div>
+          <ProductVisual product={product} className="cart-product-image" />
           <div className="cart-product-info">
             <span>{category.title}</span>
             <h3>{product.name}</h3>
