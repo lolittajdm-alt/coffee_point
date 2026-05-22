@@ -255,69 +255,114 @@ function CategoryOverview({ category, activeProduct }) {
   );
 }
 
-function ProductCarousel({ activeCategoryIndex, activeProductIndex, onProductChange, onOpenCart }) {
-  const category = categories[activeCategoryIndex];
-  const carouselRef = useRef(null);
+const PRODUCT_GRID_ROWS = 3;
+const PRODUCT_GRID_COLS = 4;
+const PRODUCT_GRID_SIZE = PRODUCT_GRID_ROWS * PRODUCT_GRID_COLS;
+const PRODUCT_GRID_BASE_COUNT = 3;
 
-  function selectProduct(index, shouldScroll = true) {
-    onProductChange(index);
-    if (shouldScroll) {
-      window.setTimeout(() => {
-        const card = carouselRef.current?.querySelector(`[data-product-index="${index}"]`);
-        card?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-      }, 0);
-    }
+function buildGridProducts(products) {
+  const base = products.slice(0, PRODUCT_GRID_BASE_COUNT);
+  return Array.from({ length: PRODUCT_GRID_SIZE }, (_, index) => ({
+    ...base[index % PRODUCT_GRID_BASE_COUNT],
+    gridKey: `${index}-${base[index % PRODUCT_GRID_BASE_COUNT].name}`,
+  }));
+}
+
+function ProductGrid({ activeCategoryIndex, activeProductIndex, onProductChange, onOpenCart }) {
+  const category = categories[activeCategoryIndex];
+  const gridProducts = useMemo(() => buildGridProducts(category.products), [category.products]);
+  const rowRefs = useRef([]);
+
+  function selectProduct(productIndex) {
+    onProductChange(productIndex);
   }
+
+  useEffect(() => {
+    const rows = rowRefs.current.filter(Boolean);
+    if (!rows.length) {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -8% 0px" },
+    );
+
+    rows.forEach((row) => observer.observe(row));
+    return () => observer.disconnect();
+  }, [activeCategoryIndex, gridProducts]);
 
   return (
     <div className="product-showcase">
       <div className="product-heading">
         <span className="eyebrow">Детальний вибір</span>
-        <h3>Весь асортимент розділу в одну лінію</h3>
       </div>
-      <div className="product-carousel" data-product-carousel aria-live="polite" ref={carouselRef}>
-        {category.products.map((product, index) => {
-          const isActive = index === activeProductIndex;
-          return (
-            <article
-              className={`product-card${isActive ? " is-active" : ""}`}
-              tabIndex="0"
-              data-product-index={index}
-              key={`${category.id}-${product.name}`}
-              onClick={() => selectProduct(index)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter" || event.key === " ") {
-                  event.preventDefault();
-                  selectProduct(index);
-                }
-              }}
-            >
-              <div className="product-card-top">
-                <ProductVisual product={product} className="product-image" />
-              </div>
-              <div className="product-card-bottom">
-                <div className="product-card-copy">
-                  <h4>{product.name}</h4>
-                  <p>{product.taste}</p>
-                  <span className="product-card-meta">
-                    {product.weight} · {product.price}
-                  </span>
-                </div>
-                <button
-                  className="buy-button buy-button--card"
-                  type="button"
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    selectProduct(index, false);
-                    onOpenCart();
-                  }}
-                >
-                  Купити
-                </button>
-              </div>
-            </article>
-          );
-        })}
+      <div className="product-grid" data-product-grid aria-live="polite">
+        {Array.from({ length: PRODUCT_GRID_ROWS }, (_, rowIndex) => (
+          <div
+            className="product-grid-row"
+            key={`${category.id}-row-${rowIndex}`}
+            ref={(element) => {
+              rowRefs.current[rowIndex] = element;
+            }}
+          >
+            {gridProducts
+              .slice(rowIndex * PRODUCT_GRID_COLS, rowIndex * PRODUCT_GRID_COLS + PRODUCT_GRID_COLS)
+              .map((product, columnIndex) => {
+                const gridIndex = rowIndex * PRODUCT_GRID_COLS + columnIndex;
+                const productIndex = gridIndex % PRODUCT_GRID_BASE_COUNT;
+                const isActive = productIndex === activeProductIndex;
+
+                return (
+                  <article
+                    className={`product-card${isActive ? " is-active" : ""}`}
+                    tabIndex="0"
+                    data-grid-index={gridIndex}
+                    data-product-index={productIndex}
+                    key={`${category.id}-${product.gridKey}`}
+                    onClick={() => selectProduct(productIndex)}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        selectProduct(productIndex);
+                      }
+                    }}
+                  >
+                    <div className="product-card-top">
+                      <ProductVisual product={product} className="product-image" />
+                    </div>
+                    <div className="product-card-bottom">
+                      <div className="product-card-copy">
+                        <h4>{product.name}</h4>
+                        <p>{product.taste}</p>
+                        <span className="product-card-meta">
+                          {product.weight} · {product.price}
+                        </span>
+                      </div>
+                      <button
+                        className="buy-button buy-button--card"
+                        type="button"
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          selectProduct(productIndex);
+                          onOpenCart();
+                        }}
+                      >
+                        Купити
+                      </button>
+                    </div>
+                  </article>
+                );
+              })}
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -329,7 +374,7 @@ function Categories({ activeCategoryIndex, activeProductIndex, onCategoryChange,
     <section className="categories" id="products">
       <CategoryTabs activeCategoryIndex={activeCategoryIndex} onCategoryChange={onCategoryChange} />
       <CategoryOverview category={category} activeProduct={category.products[activeProductIndex]} />
-      <ProductCarousel
+      <ProductGrid
         activeCategoryIndex={activeCategoryIndex}
         activeProductIndex={activeProductIndex}
         onProductChange={onProductChange}
