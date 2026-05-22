@@ -225,7 +225,7 @@ function CategoryTabs({ activeCategoryIndex, onCategoryChange }) {
 }
 
 function CategoryOverview({ category, activeProduct }) {
-  const orbitProduct = activeProduct ?? category.products[0];
+  const orbitProduct = activeProduct ?? category.visual;
 
   return (
     <div className="category-overview">
@@ -268,14 +268,10 @@ function buildGridProducts(products) {
   }));
 }
 
-function ProductGrid({ activeCategoryIndex, activeProductIndex, onProductChange, onOpenCart }) {
+function ProductGrid({ activeCategoryIndex, hoveredProductIndex, onProductHover, onProductChange, onOpenCart }) {
   const category = categories[activeCategoryIndex];
   const gridProducts = useMemo(() => buildGridProducts(category.products), [category.products]);
   const rowRefs = useRef([]);
-
-  function selectProduct(productIndex) {
-    onProductChange(productIndex);
-  }
 
   useEffect(() => {
     const rows = rowRefs.current.filter(Boolean);
@@ -318,22 +314,17 @@ function ProductGrid({ activeCategoryIndex, activeProductIndex, onProductChange,
               .map((product, columnIndex) => {
                 const gridIndex = rowIndex * PRODUCT_GRID_COLS + columnIndex;
                 const productIndex = gridIndex % PRODUCT_GRID_BASE_COUNT;
-                const isActive = productIndex === activeProductIndex;
 
                 return (
                   <article
-                    className={`product-card${isActive ? " is-active" : ""}`}
-                    tabIndex="0"
+                    className="product-card"
                     data-grid-index={gridIndex}
                     data-product-index={productIndex}
                     key={`${category.id}-${product.gridKey}`}
-                    onClick={() => selectProduct(productIndex)}
-                    onKeyDown={(event) => {
-                      if (event.key === "Enter" || event.key === " ") {
-                        event.preventDefault();
-                        selectProduct(productIndex);
-                      }
-                    }}
+                    onMouseEnter={() => onProductHover(productIndex)}
+                    onMouseLeave={() => onProductHover(null)}
+                    onFocus={() => onProductHover(productIndex)}
+                    onBlur={() => onProductHover(null)}
                   >
                     <div className="product-card-top">
                       <ProductVisual product={product} className="product-image" />
@@ -351,7 +342,7 @@ function ProductGrid({ activeCategoryIndex, activeProductIndex, onProductChange,
                         type="button"
                         onClick={(event) => {
                           event.stopPropagation();
-                          selectProduct(productIndex);
+                          onProductChange(productIndex);
                           onOpenCart();
                         }}
                       >
@@ -368,15 +359,27 @@ function ProductGrid({ activeCategoryIndex, activeProductIndex, onProductChange,
   );
 }
 
-function Categories({ activeCategoryIndex, activeProductIndex, onCategoryChange, onProductChange, onOpenCart }) {
+function Categories({
+  activeCategoryIndex,
+  activeProductIndex,
+  hoveredProductIndex,
+  onCategoryChange,
+  onProductHover,
+  onProductChange,
+  onOpenCart,
+}) {
   const category = categories[activeCategoryIndex];
+  const overviewProduct =
+    hoveredProductIndex != null ? category.products[hoveredProductIndex] : null;
+
   return (
     <section className="categories" id="products">
       <CategoryTabs activeCategoryIndex={activeCategoryIndex} onCategoryChange={onCategoryChange} />
-      <CategoryOverview category={category} activeProduct={category.products[activeProductIndex]} />
+      <CategoryOverview category={category} activeProduct={overviewProduct} />
       <ProductGrid
         activeCategoryIndex={activeCategoryIndex}
-        activeProductIndex={activeProductIndex}
+        hoveredProductIndex={hoveredProductIndex}
+        onProductHover={onProductHover}
         onProductChange={onProductChange}
         onOpenCart={onOpenCart}
       />
@@ -479,7 +482,7 @@ function Footer() {
 
 function CartDrawer({ isOpen, activeCategoryIndex, activeProductIndex, onClose }) {
   const category = categories[activeCategoryIndex];
-  const product = category.products[activeProductIndex];
+  const product = category.products[activeProductIndex ?? 0];
 
   return (
     <>
@@ -516,7 +519,8 @@ export default function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [heroIndex, setHeroIndex] = useState(0);
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
-  const [activeProductIndex, setActiveProductIndex] = useState(0);
+  const [activeProductIndex, setActiveProductIndex] = useState(null);
+  const [hoveredProductIndex, setHoveredProductIndex] = useState(null);
 
   const bodyClassName = useMemo(() => {
     const classes = [];
@@ -561,7 +565,8 @@ export default function App() {
 
   function handleCategoryChange(index) {
     setActiveCategoryIndex(index);
-    setActiveProductIndex(0);
+    setActiveProductIndex(null);
+    setHoveredProductIndex(null);
   }
 
   function openCart() {
@@ -590,7 +595,9 @@ export default function App() {
         <Categories
           activeCategoryIndex={activeCategoryIndex}
           activeProductIndex={activeProductIndex}
+          hoveredProductIndex={hoveredProductIndex}
           onCategoryChange={handleCategoryChange}
+          onProductHover={setHoveredProductIndex}
           onProductChange={setActiveProductIndex}
           onOpenCart={openCart}
         />
