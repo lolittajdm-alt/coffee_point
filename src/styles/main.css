@@ -753,7 +753,8 @@ h1 {
   z-index: 3;
 }
 
-.product-card.is-active .product-card-top,
+.product-card.is-active .product-card-top::before,
+.product-card.is-active .product-card-top::after,
 .product-card.is-active .product-card-bottom {
   border-color: #d4b896;
 }
@@ -761,20 +762,49 @@ h1 {
 .product-card-top {
   position: relative;
   z-index: 1;
+  container-type: inline-size;
   overflow: visible;
   height: 100%;
   min-height: 0;
+  border: 0;
+  background: transparent;
+}
+
+/* True semicircle cap: arc height = half of card width (aspect-ratio 2:1) */
+.product-card-top::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  aspect-ratio: 2 / 1;
   border: 1px solid #e0d6cc;
   border-bottom: 0;
-  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  border-radius: 50% 50% 0 0;
   background: #f3ebe0;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.product-card-top::after {
+  content: "";
+  position: absolute;
+  top: 50cqi;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-left: 1px solid #e0d6cc;
+  border-right: 1px solid #e0d6cc;
+  background: #f3ebe0;
+  pointer-events: none;
 }
 
 .product-card-pack {
   position: absolute;
   top: var(--pack-top);
   left: 50%;
-  z-index: 4;
+  z-index: 1;
   width: var(--pack-slot-width);
   height: var(--pack-slot-height);
   margin: 0;
@@ -836,9 +866,20 @@ h1 {
   border: 1px solid #e0d6cc;
   border-top: 0;
   border-radius: 0 0 18px 18px;
-  background: #4a2c20;
+  background: transparent;
   color: #fff8ec;
-  overflow: hidden;
+  overflow: visible;
+  isolation: isolate;
+}
+
+.product-card-bottom::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: 0 0 18px 18px;
+  background: #4a2c20;
+  pointer-events: none;
 }
 
 .product-card.is-active .product-card-bottom {
@@ -872,11 +913,15 @@ h1 {
 }
 
 .product-card-copy {
+  position: relative;
+  z-index: 2;
   flex: 1 1 auto;
   min-height: 0;
 }
 
 .product-card-actions {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -886,6 +931,8 @@ h1 {
 }
 
 .product-card-price {
+  position: relative;
+  z-index: 1;
   color: #f3c07b;
   font-size: 1.05rem;
   font-weight: 900;
@@ -934,9 +981,11 @@ h1 {
     z-index: 3;
   }
 
-  .product-card:hover .product-card-top,
+  .product-card:hover .product-card-top::before,
+  .product-card:hover .product-card-top::after,
   .product-card:hover .product-card-bottom,
-  .product-card:focus-within .product-card-top,
+  .product-card:focus-within .product-card-top::before,
+  .product-card:focus-within .product-card-top::after,
   .product-card:focus-within .product-card-bottom {
     border-color: #d4b896;
   }
