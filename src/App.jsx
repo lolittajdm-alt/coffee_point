@@ -185,21 +185,21 @@ function Hero({ heroIndex, onHeroChange }) {
             )}
           </article>
         ))}
-      </div>
-      <div className="hero-controls" aria-label="Керування банером">
-        <button type="button" aria-label="Попередній слайд" onClick={() => onHeroChange((heroIndex - 1 + heroSlides.length) % heroSlides.length)}>‹</button>
-        <div className="hero-dots" data-hero-dots>
-          {heroSlides.map((slide, index) => (
-            <button
-              className={`hero-dot${index === heroIndex ? " is-active" : ""}`}
-              type="button"
-              aria-label={`Показати слайд ${index + 1}`}
-              key={`${slide.id}-dot`}
-              onClick={() => onHeroChange(index)}
-            ></button>
-          ))}
+        <div className="hero-controls" aria-label="Керування банером">
+          <button type="button" aria-label="Попередній слайд" onClick={() => onHeroChange((heroIndex - 1 + heroSlides.length) % heroSlides.length)}>‹</button>
+          <div className="hero-dots" data-hero-dots>
+            {heroSlides.map((slide, index) => (
+              <button
+                className={`hero-dot${index === heroIndex ? " is-active" : ""}`}
+                type="button"
+                aria-label={`Показати слайд ${index + 1}`}
+                key={`${slide.id}-dot`}
+                onClick={() => onHeroChange(index)}
+              ></button>
+            ))}
+          </div>
+          <button type="button" aria-label="Наступний слайд" onClick={() => onHeroChange((heroIndex + 1) % heroSlides.length)}>›</button>
         </div>
-        <button type="button" aria-label="Наступний слайд" onClick={() => onHeroChange((heroIndex + 1) % heroSlides.length)}>›</button>
       </div>
     </section>
   );

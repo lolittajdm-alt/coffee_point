@@ -699,7 +699,7 @@ h1 {
   position: relative;
   z-index: 12;
   display: grid;
-  row-gap: 6rem;
+  row-gap: clamp(9rem, 14vw, 11rem);
   column-gap: 0;
   overflow: visible;
   padding: clamp(96px, 11vw, 128px) 0 clamp(12px, 2vw, 20px);
@@ -2596,7 +2596,7 @@ body {
   }
 
   .product-grid {
-    row-gap: 4.5rem;
+    row-gap: clamp(7rem, 16vw, 9rem);
     padding: 72px 0 12px;
   }
 
@@ -2954,5 +2954,34 @@ body {
   .hero-slider,
   .hero-poster-image {
     border-radius: 0 0 28px 28px;
+  }
+}
+
+
+/* Pagination dots sit on the slider, not in the section below */
+.hero-slider .hero-controls {
+  position: absolute;
+  left: 50%;
+  right: auto;
+  bottom: 20px;
+  z-index: 6;
+  gap: 6px;
+  transform: translateX(-50%);
+  pointer-events: auto;
+}
+
+.hero-slider .hero-controls > button {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .hero-slider .hero-controls {
+    bottom: 18px;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero-slider .hero-controls {
+    bottom: 16px;
   }
 }
