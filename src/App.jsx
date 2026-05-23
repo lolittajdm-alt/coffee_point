@@ -39,6 +39,11 @@ function packSizeClass(product) {
   return product.packSize ? `pack-size-${product.packSize}` : "";
 }
 
+function formatCardPrice(price) {
+  const match = String(price ?? "").match(/\d+/);
+  return match ? `${match[0]} ₴` : "299 ₴";
+}
+
 function ProductVisual({ product, className }) {
   if (product.image) {
     return (
@@ -333,21 +338,22 @@ function ProductGrid({ activeCategoryIndex, hoveredProductIndex, onProductHover,
                       <div className="product-card-copy">
                         <h4>{product.name}</h4>
                         <p>{product.taste}</p>
-                        <span className="product-card-meta">
-                          {product.weight} · {product.price}
-                        </span>
+                        <span className="product-card-meta">{product.weight}</span>
                       </div>
-                      <button
-                        className="buy-button buy-button--card"
-                        type="button"
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          onProductChange(productIndex);
-                          onOpenCart();
-                        }}
-                      >
-                        Купити
-                      </button>
+                      <div className="product-card-actions">
+                        <span className="product-card-price">{formatCardPrice(product.price)}</span>
+                        <button
+                          className="buy-button buy-button--card"
+                          type="button"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            onProductChange(productIndex);
+                            onOpenCart();
+                          }}
+                        >
+                          Купити
+                        </button>
+                      </div>
                     </div>
                   </article>
                 );
