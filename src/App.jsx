@@ -332,8 +332,8 @@ function ProductGrid({ activeCategoryIndex, hoveredProductIndex, onProductHover,
                     onBlur={() => onProductHover(null)}
                   >
                     <div className="product-card-top" aria-hidden="true"></div>
-                    <ProductVisual product={product} className="product-image product-card-pack" />
                     <div className="product-card-bottom">
+                      <ProductVisual product={product} className="product-image product-card-pack" />
                       <div className="product-card-copy">
                         <h4>{product.name}</h4>
                         <p>{product.taste}</p>
