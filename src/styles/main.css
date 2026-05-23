@@ -732,7 +732,7 @@ h1 {
   --pack-slot-width: 118px;
   --pack-slot-height: 176px;
   --pack-lift: 0.36;
-  --light-cap-height: clamp(88px, 12vw, 108px);
+  --light-cap-height: clamp(62px, 7.5vw, 76px);
   --pack-top: calc(var(--light-cap-height) - var(--pack-slot-height) * var(--pack-lift));
   --section-seam: calc(var(--pack-top) + var(--pack-slot-height));
   position: relative;
@@ -743,7 +743,7 @@ h1 {
   min-height: calc(var(--section-seam) + 112px);
   overflow: visible;
   border: 0;
-  border-radius: 0 0 18px 18px;
+  border-radius: 0;
   background: transparent;
   cursor: default;
   text-align: left;
@@ -865,7 +865,7 @@ h1 {
   padding: 14px 14px 12px;
   border: 1px solid #e0d6cc;
   border-top: 0;
-  border-radius: 0 0 18px 18px;
+  border-radius: 0;
   background: transparent;
   color: #fff8ec;
   overflow: visible;
@@ -877,7 +877,7 @@ h1 {
   position: absolute;
   inset: 0;
   z-index: 0;
-  border-radius: 0 0 18px 18px;
+  border-radius: 0;
   background: #4a2c20;
   pointer-events: none;
 }
@@ -2663,7 +2663,7 @@ body {
   .product-card {
     --pack-slot-width: 104px;
     --pack-slot-height: 156px;
-    --light-cap-height: clamp(78px, 18vw, 96px);
+    --light-cap-height: clamp(56px, 14vw, 68px);
     --pack-top: calc(var(--light-cap-height) - var(--pack-slot-height) * var(--pack-lift));
     --section-seam: calc(var(--pack-top) + var(--pack-slot-height));
     grid-template-rows: var(--section-seam) minmax(104px, 118px);
